@@ -22,7 +22,8 @@ header {
 .contact {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+   align-items: flex-end;
+  gap: 20px;
   justify-content: center;
   font-size: 14px;
   color: #555;
@@ -32,20 +33,20 @@ header {
   display: flex;
   justify-content: space-around;
   background: #f1f1f1;
-  padding: 10px;
-  margin: 20px 0;
+
   font-size: 14px;
 }
 
 section {
   margin-bottom: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 5px;
 }
 
 h2 {
   color: #2c3e50;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #2c3e50;
-  padding-bottom: 5px;
+  
 }
 
 .job-header {
@@ -60,17 +61,137 @@ ul {
 }
 
 .projects,
-.skills {
+.skills ,.certificate {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+
 }
 
 .projects > div,
 .skills > div {
   flex: 1;
-  min-width: 250px;
+  min-width: 100px;
   background: #f9f9f9;
   padding: 10px;
   border-left: 4px solid #2c3e50;
 }
+.certificate>div {
+  flex: 1;
+  min-width: 334px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-left: 4px solid #2c3e50;
+}
+.logo {
+
+  width: 20px;
+  height: 20px;
+
+}
+.logo1 {
+
+  width: 30px;
+  height: 30px;
+
+}
+.contact span {
+  display: flex;
+  align-items: center; /* centers the icon and text vertically */
+  gap: 10px;           /* space between icon and text */
+}
+
+
+.flexing{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.nwork {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.profiles{
+  display: flex;
+  justify-content: center;
+  justify-content: space-around
+  
+}
+.summary { 
+  display: flex  ;
+  flex-direction: row;
+  gap: 50px;
+  align-items: flex-start;
+}
+  .experience { 
+  display: flex  ;
+  flex-direction: row;
+  gap: 30px;
+  align-items: flex-start;
+}
+.two{
+  display: flex;
+  flex-direction: column;
+  
+}
+.education{
+  display: flex  ;
+  flex-direction: row;
+  gap: 50px;
+  align-items: flex-start;
+
+}
+.pro {
+    
+  display: flex  ;
+  flex-direction: row;
+  gap: 70px;
+  align-items: flex-start
+
+
+}
+.ski{
+  display: flex  ;
+  flex-direction: row;
+  gap: 102px;
+  align-items: flex-start;
+}
+.cer{
+  display: flex  ;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+}
+.proj > div {
+  display: flex;
+  min-width: 200px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-left: 4px solid #2c3e50;
+  flex-direction: row;
+}
+.lang{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+
+}
+
+
+.lang>div {
+  flex: 1;
+  min-width: 334px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-left: 4px solid #2c3e50;
+}
+.lan{
+  display: flex  ;
+  flex-direction: row;
+  gap: 50px;
+  align-items: flex-start;}
