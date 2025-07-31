@@ -461,14 +461,32 @@
     --tw-gradient-position: to top in oklab;
     background-image: linear-gradient(var(--tw-gradient-stops));
   }
-  .bg-\[url\(\'img\/1\.jpg\'\)\] {
-    background-image: url('img/1.jpg');
+  .bg-\[url\(\'\.\/images\/1\.jpg\'\)\] {
+    background-image: url('./images/1.jpg');
   }
-  .bg-\[url\(\'img\/2\.jpg\'\)\] {
-    background-image: url('img/2.jpg');
+  .bg-\[url\(\'\.\/images\/2\.jpg\'\)\] {
+    background-image: url('./images/2.jpg');
   }
-  .bg-\[url\(\'img\/4\.jpg\'\)\] {
-    background-image: url('img/4.jpg');
+  .bg-\[url\(\'\.\/images\/4\.jpg\'\)\] {
+    background-image: url('./images/4.jpg');
+  }
+  .bg-\[url\(\'\.\/images\/d1\.jpg\'\)\] {
+    background-image: url('./images/d1.jpg');
+  }
+  .bg-\[url\(\'\.\/images\/d2\.jpg\'\)\] {
+    background-image: url('./images/d2.jpg');
+  }
+  .bg-\[url\(\'\.\/images\/d3\.jpg\'\)\] {
+    background-image: url('./images/d3.jpg');
+  }
+  .bg-\[url\(\'\.\/images\/d4\.jpg\'\)\] {
+    background-image: url('./images/d4.jpg');
+  }
+  .bg-\[url\(\'\.\/images\/d5\.jpg\'\)\] {
+    background-image: url('./images/d5.jpg');
+  }
+  .bg-\[url\(\'\.\/images\/d6\.jpg\'\)\] {
+    background-image: url('./images/d6.jpg');
   }
   .bg-\[url\(\'img\/ab1\.jpg\'\)\] {
     background-image: url('img/ab1.jpg');
