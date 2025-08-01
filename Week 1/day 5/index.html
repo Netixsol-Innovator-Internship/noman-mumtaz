@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./src/output.css" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+    <script>
+      function toggleTheme() {
+        document.documentElement.classList.toggle("dark");
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NFT Project</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap");
+      .font-imperial {
+        font-family: "Imperial Script", cursive;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    </style>
+  </head>
+  <!-- --------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  <body class="bg-black text-white font-poppins">
+    <nav class="flex flex-row items-center justify-between p-10">
+      <a href="./index.html" class="mb-4 md:mb-0">
+        <h1 class="font-bold text-[27px] pl-32">LogoHere</h1>
+      </a>
+      <ul class="flex items-center space-x-4 md:space-x-10 mr-0 md:mr-10">
+        <li>
+          <a href="#about" class="font-semibold text-[21px]">About </a>
+        </li>
+        <li>
+          <a href="#col" class="font-semibold text-[21px]">Collection</a>
+        </li>
+        <li>
+          <a href="#cre" class="font-semibold text-[21px]">Creator</a>
+        </li>
+        <li>
+          <a href="#road" class="font-semibold text-[21px]">Road Map</a>
+        </li>
+        <li>
+          <button
+            class="bg-[#DA8F4D] text-white border border-[#FFFFFF] rounded-[21px] w-[200px] h-[57px]"
+          >
+            Sign In
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- -----------------------------------Home Page----------------------------------------------- -->
+
+    <div class="bg-[url('./image/1.png')] bg-cover bg-center opacity-90">
+      <div class="flex flex-row items-center justify-center gap-48 py-32">
+        <!-- --------------------------------------------------------------------------------------------- -->
+        <div>
+          <div class="space-y-[-24px]">
+            <h2 class="text-[85px] font-bold">We Have High</h2>
+            <h2 class="text-[85px] font-bold">
+              <span> Quality </span
+              ><span class="text-[#DA8F4D]"
+                >NFT
+                <img
+                  src="./image/wide.png"
+                  alt=""
+                  class="w-32 y-32 inline-flex ml-10 mt-10"
+              /></span>
+            </h2>
+            <h2 class="text-[85px] font-bold">Collections</h2>
+          </div>
+
+          <p class="text-[14px] font-bold w-[600px] mt-4">
+            Lorem ipsum dolor sit amet consectetur. Rhoncus massa suspendisse
+            turpis sed viverra tempus tortor. Habitant accumsan sagittis in
+            facilisi placerat ac. Laoreet scelerisque viverra viverra ornare
+            fermentum faucibus sit purus volutpat. Egestas lectus ornare
+            convallis ornare nullam enim neque.
+          </p>
+          <div class="flex flex-row items-center gap-16 mb-10 pb-16">
+            <button
+              class="bg-[#DA8F4D] text-white border border-[#FFFFFF] rounded-[21px] w-[200px] h-[57px] mt-20"
+            >
+              Get Whitelist
+            </button>
+            <button
+              class="bg-[#FFFFFF59] text-white rounded-[21px] w-[200px] h-[57px] mt-20"
+            >
+              Contact Us
+            </button>
+          </div>
+
+          <img src="./image/info.png" alt="" / class="w-[600px] h-[162px]" />
+        </div>
+        <!-- --------------------------------------------------------------------------------------------- -->
+
+        <div class="w-[566px] h-[690px] mb-64">
+          <img src="./image/tiger.png" alt="" />
+          <img src="./image/thinsmooth.png" alt="" class="inline-flex" />
+        </div>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------About US---------------------------------------------- -->
+    <div id="about" class="mt-20">
+      <div class="flex items-center justify-center flex-col mb-16">
+        <h2 class="font-semibold text-[52px]">About Us</h2>
+      </div>
+    </div>
+    <div class="flex justify-center flex-row px-32 gap-32 mt-24">
+      <!-- --------------------------------------------------------------------------------------------- -->
+      <div class="flex items-center justify-center">
+        <div class="grid grid-cols-2 grid-rows-2 gap-8">
+          <div
+            class="w-[290px] h-[250px] bg-[url('./image/Rect.png')] flex justify-center"
+          >
+            <img src="./image/loin1.png" alt="" />
+          </div>
+          <div
+            class="w-[290px] h-[250px] bg-[url('./image/Rect.png')] flex justify-center"
+          >
+            <img src="./image/loin2.png" alt="" />
+          </div>
+          <div
+            class="w-[290px] h-[250px] bg-[url('./image/Rect.png')] flex justify-center"
+          >
+            <img src="./image/loin3.png" alt="" />
+          </div>
+          <div
+            class="w-[290px] h-[250px] bg-[url('./image/Rect.png')] flex justify-center"
+          >
+            <img src="./image/loin4.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <!-- --------------------------------------------------------------------------------------------- -->
+      <div>
+        <p class="w-[620px] text-[16px]">
+          Lorem ipsum dolor sit amet consectetur. Pharetra faucibus donec
+          ultrices eros elit metus morbi aliquam quis. Suspendisse massa
+          ullamcorper tortor morbi nisi leo. Ultrices leo vel tincidunt nunc
+          eget elit. Gravida et duis ipsum pellentesque libero. Tellus rhoncus
+          metus et eget mattis fringilla nec id. Amet ultrices quam ridiculus
+          tellus. Leo adipiscing tincidunt amet nisi semper adipiscing quam in
+          est. Tempor sed dui nunc diam adipiscing at.
+        </p>
+        <p class="w-[620px] text-[16px] mt-16">
+          Tellus rhoncus metus et eget mattis fringilla nec id. Amet ultrices
+          quam ridiculus tellus. Leo adipiscing tincidunt amet nisi semper
+          adipiscing quam in est. Tempor sed dui nunc diam adipiscing at.
+        </p>
+        <button
+          class="bg-[#FFFFFF59] text-white border border-[#EA9112] rounded-[21px] w-[200px] h-[57px] mt-20"
+        >
+          Connect Wallet
+        </button>
+      </div>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------Collection----------------------------------------------- -->
+
+    <div id="col">
+      <div class="flex items-center justify-center flex-col py-16">
+        <h2 class="font-semibold text-[52px]">Top Collections</h2>
+        <p class="font-regular text-[19px]">
+          The largest and unique Super rare NFT marketplace For
+          crypto-collectibles
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-[url('./image/1.png')] bg-cover bg-center">
+      <!-- --------------------------------------------------------------------------------------------- -->
+      <div class="flex items-center justify-center mt-10">
+        <div class="grid grid-cols-3 grid-rows-2 gap-8">
+          <div
+            class="w-[446px] h-[531px] bg-[url('./image/c1.png')] flex justify-center"
+          ></div>
+          <div
+            class="w-[446px] h-[531px] bg-[url('./image/c2.png')] flex justify-center"
+          ></div>
+          <div
+            class="w-[446px] h-[531px] bg-[url('./image/c3.png')] flex justify-center"
+          ></div>
+          <div
+            class="w-[446px] h-[531px] bg-[url('./image/c4.png')] flex justify-center"
+          ></div>
+          <div
+            class="w-[446px] h-[531px] bg-[url('./image/c5.png')] flex justify-center"
+          ></div>
+          <div
+            class="w-[446px] h-[531px] bg-[url('./image/c6.png')] flex justify-center"
+          ></div>
+        </div>
+      </div>
+      <!-- --------------------------------------------------------------------------------------------- -->
+      <div class="flex items-center justify-center mt-10">
+        <button
+          class="bg-[#FFFFFF59] text-white border border-[#EA9112] rounded-[21px] w-[200px] h-[57px] mt-10"
+        >
+          Explore More
+        </button>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------Creator-------------------------------------------- -->
+
+    <div id="cre" class="mb-32">
+      <div class="flex items-center justify-center flex-col py-24">
+        <h2 class="font-semibold text-[52px]">Top Creators</h2>
+        <p class="font-regular text-[19px]">
+          Checkout Top Rated Creators on the NFT Marketplace
+        </p>
+      </div>
+      <!-- --------------------------------------------------------------------------------------------- -->
+      <div class="flex items-center justify-center mt-10">
+        <div class="grid grid-cols-4 grid-rows-2 gap-8">
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a1.png')] flex justify-center"
+          >
+            <img
+              src="./image/l1.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a2.png')] flex justify-center"
+          >
+            <img
+              src="./image/l2.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a3.png')] flex justify-center"
+          >
+            <img
+              src="./image/l3.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a4.png')] flex justify-center"
+          >
+            <img
+              src="./image/l4.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a5.png')] flex justify-center"
+          >
+            <img
+              src="./image/l5.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a6.png')] flex justify-center"
+          >
+            <img
+              src="./image/l6.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a7.png')] flex justify-center"
+          >
+            <img
+              src="./image/l7.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+          <div
+            class="w-[324px] h-[323px] bg-[url('./image/a8.png')] flex justify-center"
+          >
+            <img
+              src="./image/l8.png"
+              alt=""
+              class="w-[147px] h-[147px] rounded-full mt-[60px]"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------------Road Map---------------------------------------- -->
+    <div id="road" class="mt-20">
+      <div class="flex items-center justify-center flex-col mb-16">
+        <h2 class="font-semibold text-[52px]">Road Map</h2>
+      </div>
+    </div>
+    <div class="relative h-[1012px]">
+   <div class="absolute left-[715px] top-[48px] h-[294px] w-[210px] bg-[url('./image/vector.png')] -translate-x-1/2"></div>
+ <div class="absolute left-[715px] top-[435px] h-[294px] w-[210px] bg-[url('./image/vector.png')] -translate-x-1/2"></div>
+ <div class="absolute left-[715px] top-[823px] h-[294px] w-[210px] bg-[url('./image/vector.png')] -translate-x-1/2"></div>
+
+   <div class="absolute left-[1085px] top-[173px] h-[294px] w-[210px] bg-[url('./image/vector1.png')] -translate-x-1/2"></div>
+ <div class="absolute left-[1085px] top-[560px] h-[294px] w-[210px] bg-[url('./image/vector1.png')] -translate-x-1/2"></div>
+ <div class="absolute left-[1085px] top-[963px] h-[294px] w-[210px] bg-[url('./image/vector1.png')] -translate-x-1/2"></div>
+
+  <div class="absolute left-1/2 top-32 h-full w-[2px] bg-[url('./image/line.png')] -translate-x-1/2"></div>
+
+    <div class="bg-[url('./image/1.png')] bg-cover bg-center flex justify-center  gap-48 p-16">
+      
+      <div class="mb-32">
+        <div class="grid grid-cols-1 grid-rows-3 gap-32 ">
+          <div
+            class="w-[590px] h-[260px] bg-[url('./image/r1.png')] p-8 "
+          >
+            <p class="text-[23px] font-medium text-center">January</p>
+            <h2 class="text-[37px] font-semibold py-3">breif</h2>
+            <p class="text-[20px] font-medium">
+              Lorem ipsum dolor sit amet consectetur. Elit massa erat vitae non
+              semper quis. Morbi sed aliquet donec facilisis. Senectus eget.
+            </p>
+          </div>
+          <div
+            class="w-[590px] h-[260px] bg-[url('./image/r2.png')] p-8"
+          ><p class="text-[23px] font-medium text-center">March</p>
+            <h2 class="text-[37px] font-semibold py-3">Discover</h2>
+            <p class="text-[20px] font-medium">
+              Lorem ipsum dolor sit amet consectetur. Elit massa erat vitae non
+              semper quis. Morbi sed aliquet donec facilisis. Senectus eget.
+            </p>
+          </div>
+          <div
+            class="w-[590px] h-[260px] bg-[url('./image/r3.png')] p-8"
+          ><p class="text-[23px] font-medium text-center">May</p>
+            <h2 class="text-[37px] font-semibold py-3">Testing</h2>
+            <p class="text-[20px] font-medium">
+              Lorem ipsum dolor sit amet consectetur. Elit massa erat vitae non
+              semper quis. Morbi sed aliquet donec facilisis. Senectus eget.
+            </p></div>
+        </div>
+      </div>
+
+      <div class="mt-32">
+        <div class="grid grid-cols-1 grid-rows-3 gap-32">
+          <div
+            class="w-[590px] h-[260px] bg-[url('./image/r1.png')] p-8 "
+          >
+            <p class="text-[23px] font-medium text-center">Fabruary</p>
+            <h2 class="text-[37px] font-semibold py-3">Research</h2>
+            <p class="text-[20px] font-medium">
+              Lorem ipsum dolor sit amet consectetur. Elit massa erat vitae non
+              semper quis. Morbi sed aliquet donec facilisis. Senectus eget.
+            </p>
+          </div>
+          <div
+            class="w-[590px] h-[260px] bg-[url('./image/r2.png')] p-8"
+          ><p class="text-[23px] font-medium text-center">April</p>
+            <h2 class="text-[37px] font-semibold py-3">Launch</h2>
+            <p class="text-[20px] font-medium">
+              Lorem ipsum dolor sit amet consectetur. Elit massa erat vitae non
+              semper quis. Morbi sed aliquet donec facilisis. Senectus eget.
+            </p>
+          </div>
+          <div
+            class="w-[590px] h-[260px] bg-[url('./image/r3.png')] p-8"
+          ><p class="text-[23px] font-medium text-center">June</p>
+            <h2 class="text-[37px] font-semibold py-3">Launch & Feedback</h2>
+            <p class="text-[20px] font-medium">
+              Lorem ipsum dolor sit amet consectetur. Elit massa erat vitae non
+              semper quis. Morbi sed aliquet donec facilisis. Senectus eget.
+            </p></div>
+        </div>
+      </div>
+      
+    </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- --------------------------------------------------------------------------------------------- -->
+
+    <div class="flex items-center justify-center mt-24">
+      <h2 class="font-semibold text-[50px]">how it works</h2>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <div class="flex items-center justify-center mt-32">
+      <div class="w-[773px] h-[600px]">
+        <img src="./image/wallet.png" alt="" />
+      </div>
+      <div class="w-[773px] h-[600px]">
+        <img src="./image/wide.png" alt="" class="pt-15" />
+        <h2 class="font-bold text-[59px] ml-24">
+          Setup and Connect<br />
+          your Wallet.
+        </h2>
+        <p class="font-semiboldbold text-[15px] w-[545px] mt-10 ml-24">
+          Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque nunc
+          ut sit a volutpat elementum. Nunc elit nisi pellentesque porta
+          elementum. Id mattis neque diam nulla. Amet et a felis pellentesque
+          sed odio.
+        </p>
+      </div>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <div class="flex items-center justify-center">
+      <div class="w-[773px] h-[600px]">
+        <h2 class="font-bold text-[59px] ml-24">
+          Setup and Connect<br />
+          your Wallet.
+        </h2>
+        <p class="font-semiboldbold text-[15px] w-[545px] mt-10 ml-24">
+          Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque nunc
+          ut sit a volutpat elementum. Nunc elit nisi pellentesque porta
+          elementum. Id mattis neque diam nulla. Amet et a felis pellentesque
+          sed odio.
+        </p>
+        <img src="./image/wide.png" alt="" class="mt-24 ml-96" />
+      </div>
+      <div class="w-[773px] h-[600px]">
+        <img src="./image/monk.png" alt="" />
+      </div>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <div class="flex items-center justify-center">
+      <div class="w-[773px] h-[600px]">
+        <img src="./image/money.png" alt="" />
+      </div>
+      <div class="w-[773px] h-[600px]">
+        <h2 class="font-bold text-[59px] ml-24 pt-24">
+          Setup and Connect<br />
+          your Wallet.
+        </h2>
+        <p class="font-semiboldbold text-[15px] w-[545px] mt-10 ml-24">
+          Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque nunc
+          ut sit a volutpat elementum. Nunc elit nisi pellentesque porta
+          elementum. Id mattis neque diam nulla. Amet et a felis pellentesque
+          sed odio.
+        </p>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- --------------------------------------------------------------------------------------------- -->
+
+    <div
+      class="bg-[url('./image/1.png')] bg-cover bg-center h-96 w-full flex items-center justify-center flex-col"
+    >
+      <h2 class="font-bold text-[59px]">Join Our Community</h2>
+      <p
+        class="font-semibold text-[15px] w-[816px] text-center h-[36px ] mt-10"
+      >
+        Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque nunc ut
+        sit a volutpat elementum. Nunc elit nisi pellentesque porta elementum.
+        Id mattis neque diam nulla. Amet et a felis pellentesque sed odio.
+      </p>
+      <div class="mt-10">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          class="bg-[#D9D9D9] text-white px-4 py-2 rounded-[42px] mr-2 w-[621px] h-[66px]"
+        />
+        <button
+          class="bg-[#EFE7D78F] text-white px-4 py-2 w-[200px] h-[66px] rounded-[42px] border border-[#EA9112]"
+        >
+          Join Now
+        </button>
+      </div>
+      <p class="mt-10 font-semibold text-[15px]">
+        Ⓒ NFT Market. Use this template freely.
+      </p>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <!-- --------------------------------------------------------------------------------------------- -->
+  </body>
+</html>
