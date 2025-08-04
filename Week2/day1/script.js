@@ -92,8 +92,8 @@ function ageCalculate() {
 hideShow()
   if (
     (day == 29 && month == 2 && !(year % 4 === 0 && year % 100 !== 0)) ||
-    year % 400 === 0
-  ) {
+    year % 400 === 0)
+  {
     alert("29 feb is only in leap years");
     return;
   }
