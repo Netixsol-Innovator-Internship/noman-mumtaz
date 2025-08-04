@@ -139,16 +139,31 @@ hideShow()
   }
   birthMonth = currentMonth - birthDetails.month;
   birthYear = currentYear - birthDetails.year;
+  console.log(birthDate + "     " +   birthMonth + "     " + birthYear+" helo");
 
   displayResult(birthDate, birthMonth, birthYear);
 }
 
 function animateCount(id, finalValue, duration) {
   let element = document.getElementById(id);
+  if (!element) return;
+
+  if (finalValue === 0) {
+    element.textContent = 0;
+    return;
+  }
+
   let start = 0;
   let range = finalValue - start;
+
+  // Avoid divide by zero
+  if (range === 0) {
+    element.textContent = finalValue;
+    return;
+  }
+
   let increment = finalValue > 0 ? 1 : -1;
-  let stepTime = Math.abs(Math.floor(duration / range));
+  let stepTime = Math.max(10, Math.floor(duration / Math.abs(range)));
 
   let current = start;
   let timer = setInterval(function () {
@@ -159,6 +174,8 @@ function animateCount(id, finalValue, duration) {
     }
   }, stepTime);
 }
+
+
 function hideShow() {
   let element = document.getElementById('explanation');
 
@@ -174,38 +191,40 @@ function leapChecker(year) {
   } else {
     months[1] = 28;
   }
-}
+}console.log(year + "     " + currentMonth + "     " + currentYear);
 
 function displayResult(bDate, bMonth, bYear) {
-  animateCount("years-output", bYear, 20);
-  animateCount("months-output", bMonth,1100);
-  animateCount("days-output", bDate, 1100);
+  animateCount("years-output", bYear, 800);
+  animateCount("months-output", bMonth,800);
+  animateCount("days-output", bDate, 800);
   explanation()
 }
-const ex = document.getElementById("exp");
-
 function explanation() {
+  const ex = document.getElementById("exp"); // ✅ now it's declared at the right place
+  if (!ex) return;
+
   const htmlContent = `
-   <strong>Adjust Day if Current Date &lt; Birth Date:</strong><br>
-<code>if (currentDate &lt; birthDetails.date):</code><br>
-&nbsp;&nbsp;<code>currentMonth = currentMonth - 1;</code><br>
-&nbsp;&nbsp;<code>currentDate = currentDate + months[currentMonth - 1];</code><br><br>
+    <strong>Adjust Day if Current Date &lt; Birth Date:</strong><br>
+    <code>if (currentDate &lt; birthDetails.date):</code><br>
+    &nbsp;&nbsp;<code>currentMonth = currentMonth - 1;</code><br>
+    &nbsp;&nbsp;<code>currentDate = currentDate + months[currentMonth - 1];</code><br><br>
 
-<strong>Calculate Day Difference:</strong><br>
-<code>birthDate = currentDate - birthDetails.date;</code><br><br>
+    <strong>Calculate Day Difference:</strong><br>
+    <code>birthDate = currentDate - birthDetails.date;</code><br><br>
 
-<strong>Adjust Month if Current Month &lt; Birth Month:</strong><br>
-<code>if (currentMonth &lt; birthDetails.month):</code><br>
-&nbsp;&nbsp;<code>currentYear = currentYear - 1;</code><br>
-&nbsp;&nbsp;<code>currentMonth = currentMonth + 12;</code><br><br>
+    <strong>Adjust Month if Current Month &lt; Birth Month:</strong><br>
+    <code>if (currentMonth &lt; birthDetails.month):</code><br>
+    &nbsp;&nbsp;<code>currentYear = currentYear - 1;</code><br>
+    &nbsp;&nbsp;<code>currentMonth = currentMonth + 12;</code><br><br>
 
-<strong>Calculate Month and Year Difference:</strong><br>
-<code>birthMonth = currentMonth - birthDetails.month;</code><br>
-<code>birthYear = currentYear - birthDetails.year;</code>
+    <strong>Calculate Month and Year Difference:</strong><br>
+    <code>birthMonth = currentMonth - birthDetails.month;</code><br>
+    <code>birthYear = currentYear - birthDetails.year;</code>
   `;
 
   ex.innerHTML = htmlContent;
 }
+
 
 function remove(){
   hideShow();
