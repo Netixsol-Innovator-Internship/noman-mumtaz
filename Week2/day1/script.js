@@ -97,6 +97,15 @@ hideShow()
     alert("29 feb is only in leap years");
     return;
   }
+   if ((month === 4 || month === 6 || month === 9 || month === 11) && day > 30) {
+  alert("Enter Valid Inputs");
+  return;
+}
+ console.log(day + "     " + month + "     " );
+if (month === 2 && day > 29) {
+  alert("Enter Valid Inputs");
+  return;
+}
   let today = new Date();
 
   let inputDate = new Date(year, month, day);
@@ -110,9 +119,7 @@ hideShow()
   let currentMonth = today.getMonth() + 1;
   let currentDate = today.getDate();
   console.log(currentDate + "     " + currentMonth + "     " + currentYear);
-  console.log(
-    birthDetails.date + "    " + birthDetails.month + "   " + birthDetails.year
-  );
+
 
   if (
     birthDetails.year > currentYear ||
@@ -191,7 +198,7 @@ function leapChecker(year) {
   } else {
     months[1] = 28;
   }
-}console.log(year + "     " + currentMonth + "     " + currentYear);
+}
 
 function displayResult(bDate, bMonth, bYear) {
   animateCount("years-output", bYear, 800);
