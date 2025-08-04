@@ -89,23 +89,24 @@ function ageCalculate() {
   day = Number(document.getElementById("input-day").value);
   month = Number(document.getElementById("input-month").value);
   year = Number(document.getElementById("input-year").value);
-hideShow()
-  if (
-    (day == 29 && month == 2 && !(year % 4 === 0 && year % 100 !== 0)) ||
-    year % 400 === 0)
-  {
-    alert("29 feb is only in leap years");
+ 
+if (
+  day === 29 &&
+  month === 2 &&
+  !((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0))
+) {
+  alert("29 Feb is only valid in leap years");
+  return;
+}
+  if ((month === 4 || month === 6 || month === 9 || month === 11) && day > 30) {
+    alert("Enter Valid Inputs");
     return;
   }
-   if ((month === 4 || month === 6 || month === 9 || month === 11) && day > 30) {
-  alert("Enter Valid Inputs");
-  return;
-}
- console.log(day + "     " + month + "     " );
-if (month === 2 && day > 29) {
-  alert("Enter Valid Inputs");
-  return;
-}
+  console.log(day + "     " + month + "     ");
+  if (month === 2 && day > 29) {
+    alert("Enter Valid Inputs");
+    return;
+  }
   let today = new Date();
 
   let inputDate = new Date(year, month, day);
@@ -119,7 +120,6 @@ if (month === 2 && day > 29) {
   let currentMonth = today.getMonth() + 1;
   let currentDate = today.getDate();
   console.log(currentDate + "     " + currentMonth + "     " + currentYear);
-
 
   if (
     birthDetails.year > currentYear ||
@@ -146,8 +146,8 @@ if (month === 2 && day > 29) {
   }
   birthMonth = currentMonth - birthDetails.month;
   birthYear = currentYear - birthDetails.year;
-  console.log(birthDate + "     " +   birthMonth + "     " + birthYear+" helo");
-
+  console.log(birthDate + "     " + birthMonth + "     " + birthYear + " helo");
+ hideShow();
   displayResult(birthDate, birthMonth, birthYear);
 }
 
@@ -182,14 +182,13 @@ function animateCount(id, finalValue, duration) {
   }, stepTime);
 }
 
-
 function hideShow() {
-  let element = document.getElementById('explanation');
+  let element = document.getElementById("explanation");
 
   if (element.classList.contains("hidden")) {
-    element.classList.remove("hidden");  // Show it
+    element.classList.remove("hidden"); // Show it
   } else {
-    element.classList.add("hidden");     // Hide it
+    element.classList.add("hidden"); // Hide it
   }
 }
 function leapChecker(year) {
@@ -202,9 +201,9 @@ function leapChecker(year) {
 
 function displayResult(bDate, bMonth, bYear) {
   animateCount("years-output", bYear, 800);
-  animateCount("months-output", bMonth,800);
+  animateCount("months-output", bMonth, 800);
   animateCount("days-output", bDate, 800);
-  explanation()
+  explanation();
 }
 function explanation() {
   const ex = document.getElementById("exp"); // ✅ now it's declared at the right place
@@ -232,7 +231,6 @@ function explanation() {
   ex.innerHTML = htmlContent;
 }
 
-
-function remove(){
+function remove() {
   hideShow();
 }
