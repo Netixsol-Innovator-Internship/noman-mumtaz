@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              poppins: ["Poppins", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <script src="./script.js" defer></script>
+    <title>Frontend Mentor | Age calculator app</title>
+  </head>
+  <body
+    class="font-[poppins] m-0 p-0 box-border min-h-screen grid place-items-center bg-neutral-200"
+  >
+    <main class="flex items-center flex-col md:p-10 w-full">
+      <div
+        class="bg-white p-6 md:p-11 w-full max-w-2xl rounded-xl rounded-br-[6rem] md:rounded-br-[10rem]"
+      >
+        <!-- Input Section -->
+        <div class="flex flex-wrap gap-2 md:gap-0 md:flex-nowrap">
+          <!-- Day Input -->
+          <div class="w-full md:w-32 md:mx-3">
+            <h1
+              class="text-xs font-bold uppercase text-gray-600 mb-2 tracking-widest"
+            >
+              day
+            </h1>
+            <input
+              id="input-day"
+              class="w-full h-12 p-3 rounded border border-gray-300 text-lg md:text-xl font-bold font-sans"
+              type="text"
+              minlength="1"
+              maxlength="2"
+              name="day"
+              onblur="updateDay()"
+              placeholder="DD"
+            />
+            <span
+              id="day-error"
+              class="hidden h-4 text-xs text-red-500 font-light italic w-full block mt-1"
+            ></span>
+          </div>
+
+          <!-- Month Input -->
+          <div class="w-full md:w-32 md:mx-3">
+            <h1
+              class="text-xs font-bold uppercase text-gray-600 mb-2 tracking-widest"
+            >
+              month
+            </h1>
+            <input
+              id="input-month"
+              class="w-full h-12 p-3 rounded border border-gray-300 text-lg md:text-xl font-bold font-sans"
+              type="text"
+              minlength="1"
+              maxlength="2"
+              name="month"
+              onblur="updateMonth()"
+              placeholder="MM"
+            />
+            <span
+              id="month-error"
+              class="hidden h-4 text-xs text-red-500 font-light italic w-full block mt-1"
+            ></span>
+          </div>
+
+          <!-- Year Input -->
+          <div class="w-full md:w-32 md:mx-3">
+            <h1
+              class="text-xs font-bold uppercase text-gray-600 mb-2 tracking-widest"
+            >
+              year
+            </h1>
+            <input
+              id="input-year"
+              class="w-full h-12 p-3 rounded border border-gray-300 text-lg md:text-xl font-bold font-sans"
+              max="2025"
+              type="text"
+              minlength="4"
+              maxlength="4"
+              name="year"
+              onblur="updateYear()"
+              placeholder="YYYY"
+            />
+            <span
+              id="year-error"
+              class="hidden h-4 text-xs text-red-500 font-light italic w-full block mt-1"
+            ></span>
+          </div>
+        </div>
+
+        <!-- Divider & Arrow -->
+        <div class="relative flex items-center h-14 mt-8 mb-8 md:mt-6 md:mb-0">
+          <hr class="flex-grow border border-gray-300" />
+          <div
+            id="svg-arrow"
+            onclick="ageCalculate()"
+            class="absolute left-1/2 transform -translate-x-1/2 md:relative md:left-auto md:transform-none bg-purple-600 hover:bg-neutral-900 rounded-full p-3 md:p-4 flex justify-center items-center cursor-pointer transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="34"
+              viewBox="0 0 46 44"
+              class="md:w-10 md:h-10"
+            >
+              <g fill="none" stroke="#FFF" stroke-width="2">
+                <path
+                  d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44"
+                />
+              </g>
+            </svg>
+          </div>
+          <hr class="flex-grow border border-gray-300 md:hidden" />
+        </div>
+
+        <!-- Output -->
+        <div class="text-4xl md:text-[3.6rem] tracking-wide mt-2">
+          <h1 class="font-extrabold italic">
+            <span id="years-output" class="text-purple-600 italic">- -</span>
+            Years
+          </h1>
+          <h1 class="font-extrabold italic mt-2">
+            <span id="months-output" class="text-purple-600">- -</span> Months
+          </h1>
+          <h1 class="font-extrabold italic mt-2">
+            <span id="days-output" class="text-purple-600">- -</span>
+            <span id="daysText">Days</span>
+          </h1>
+        </div>
+      </div>
+
+      <div
+        id="explanation"
+        class="hidden bg-white p-4 sm:p-6 md:p-8 mt-4 w-full max-w-2xl rounded-xl rounded-br-[4rem] sm:rounded-br-[6rem] md:rounded-br-[10rem] shadow-sm"
+      >
+        <div class="w-full flex justify-between">
+          <h1
+            class="text-lg sm:text-base font-bold uppercase text-black-600 mb-3 sm:mb-4 tracking-widest"
+          >
+            Explanation
+          </h1>
+          <button
+          onclick="remove()"
+            aria-label="Custom SVG button"
+            style="background: none; border: none; padding: 0; cursor: pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+              width="24"
+              height="24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25"
+              />
+            </svg>
+          </button>
+</div>
+          <div id="exp" class="text-gray-700 space-y-3 sm:space-y-4"></div>
+        </div>
+      
+    </main>
+  </body>
+</html>
