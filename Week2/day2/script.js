@@ -15,6 +15,8 @@ readAllBtn.addEventListener('click', function() {
   });
   
   currentUnread = 0;
+        unreadCount.classList.add("hidden")
+      
   unreadCount.textContent = currentUnread;
 });
 
@@ -28,6 +30,9 @@ document.querySelectorAll('.cursor-pointer').forEach(notification => {
       if (currentUnread > 0) {
         currentUnread--;
         unreadCount.textContent = currentUnread;
+      }
+      if (currentUnread === 0) {
+        unreadCount.classList.add("hidden")
       }
     }
   });
