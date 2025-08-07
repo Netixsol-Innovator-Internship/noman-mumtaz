@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head class="h-full">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="./src/output.css" rel="stylesheet" />
-
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NFT Project</title>
+    <title>McDonald's East London</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./src/output.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
-      /* Container adjustments to show exactly 3 boxes */
+      /* Custom styles */
       #scrollContainer {
         display: flex;
-        gap: 20px; /* space-x-5 equivalent */
+        gap: 30px;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
-        overflow-x: hidden; /* Hide horizontal scrollbar */
+        overflow-x: auto;
+
         width: 100%;
       }
 
-      /* Each review box - fixed width for 3-box layout */
       .max-w-md {
-        flex: 0 0 calc(33.33% - 22px); /* 3 boxes with gap */
+        flex: 0 0 100%;
         scroll-snap-align: start;
       }
 
-      /* Hide scrollbar but keep functionality */
+      @media (min-width: 640px) {
+        .max-w-md {
+          flex: 0 0 calc(50% - 20px);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .max-w-md {
+          flex: 0 0 calc(33.33% - 35px);
+        }
+      }
+
       .hide-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -36,132 +46,261 @@
       .hide-scrollbar::-webkit-scrollbar {
         display: none;
       }
+
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Mobile menu animation */
+      .mobile-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+
+      .mobile-menu.open {
+        max-height: 500px;
+      }
+
+      /* Hamburger menu */
+      .hamburger {
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        transition: all 0.25s;
+        position: relative;
+      }
+
+      .hamburger-top,
+      .hamburger-middle,
+      .hamburger-bottom {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 2px;
+        background: #000;
+        transform: rotate(0);
+        transition: all 0.5s;
+      }
+
+      .hamburger-middle {
+        transform: translateY(7px);
+      }
+
+      .hamburger-bottom {
+        transform: translateY(14px);
+      }
+
+      .open .hamburger-top {
+        transform: rotate(45deg) translateY(6px) translate(6px);
+      }
+
+      .open .hamburger-middle {
+        display: none;
+      }
+
+      .open .hamburger-bottom {
+        transform: rotate(-45deg) translateY(6px) translate(-6px);
+      }
     </style>
   </head>
-  <!-- --------------------------------------------------------------------------------------------- -->
-  <!-- --------------------------------------------Navbar----------------------------------- -->
 
-  <body class="bg-white text-black font-poppins h-full w-full m-0">
-    <nav class="flex flex-row items-center justify-between mt-8 mx-16">
+  <body class="bg-white text-black font-poppins m-0">
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden fixed top-4 right-4 z-50">
+      <button id="menu-btn" class="hamburger focus:outline-none">
+        <span class="hamburger-top"></span>
+        <span class="hamburger-middle"></span>
+        <span class="hamburger-bottom"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      id="menu"
+      class="mobile-menu md:hidden fixed inset-0 bg-white z-40 pt-0 px-6"
+    >
+      <ul class="flex flex-col items-center gap-4 font-medium text-lg">
+        <li><a href="#Home" class="block py-2">Home</a></li>
+        <li><a href="#off" class="block py-2">Special Offers</a></li>
+        <li><a href="#r" class="block py-2">Restaurants</a></li>
+        <li><a href="#road" class="block py-2">Track Order</a></li>
+        <li class="mt-4">
+          <button
+            onclick="openModal()"
+            class="bg-black text-white rounded-full px-6 py-2 flex items-center gap-2"
+          >
+            <img src="./image/cart.png" alt="Cart" class="w-5 h-5" />
+            <span id="b-mobile">Cart</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Navbar -->
+    <nav
+      class="container mx-auto px-4 md:px-16 py-4 md:py-8 flex flex-row items-center justify-between"
+    >
       <a href="./index.html">
-        <img src="./image/logo.png" alt="" class="w-[13.4rem] h-[3.3rem]" />
+        <img
+          src="./image/logo.png"
+          alt="McDonald's Logo"
+          class="w-40 md:w-[13.4rem] h-auto"
+        />
       </a>
-      <ul class="flex items-center gap-0 font-medium text-[1rem]">
+      <ul
+        class="hidden md:flex items-center gap-0 font-medium text-sm md:text-base"
+      >
         <li
-          class="rounded-full flex items-center justify-center w-[8rem] h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
+          class="rounded-full flex items-center justify-center w-24 md:w-[8rem] h-10 md:h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
         >
-          <a href="#about">Home</a>
+          <a href="#Home">Home</a>
         </li>
         <li
-          class="rounded-full flex items-center justify-center w-[8rem] h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
+          class="rounded-full flex items-center justify-center w-24 md:w-[8rem] h-10 md:h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
         >
-          <a href="#col"> Special Offers </a>
+          <a href="#off">Special Offers</a>
         </li>
         <li
-          class="rounded-full flex items-center justify-center w-[8rem] h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
+          class="rounded-full flex items-center justify-center w-24 md:w-[8rem] h-10 md:h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
         >
-          <a href="#cre">Restaurants</a>
+          <a href="#r">Restaurants</a>
         </li>
         <li
-          class="rounded-full flex items-center justify-center w-[8rem] h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
+          class="rounded-full flex items-center justify-center w-24 md:w-[8rem] h-10 md:h-[2.8rem] bg-transparent hover:bg-[#FC8A06]"
         >
           <a href="#road">Track Order</a>
         </li>
       </ul>
-      <div class="flex items-center gap-2">
+      <div class="hidden md:flex items-center gap-2">
         <button
-          class="bg-black rounded-full w-12 h-12 flex items-center justify-center"
+          onclick="openModal()"
+          id="a"
+          class="bg-black rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center"
         >
-          <img src="./image/cart.png" alt="Cart" class="w-6 h-6" />
+          <img
+            src="./image/cart.png"
+            alt="Cart"
+            class="w-5 h-5 md:w-6 md:h-6"
+          />
         </button>
-        <a href="#road" class="font-medium text-[1rem]">Cart</a>
+        <a id="b" href="#road" class="font-medium text-sm md:text-base">Cart</a>
       </div>
     </nav>
 
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------Home Page----------------------------------------------- -->
+    <!-- Home Page -->
     <section
-      class="relative bg-[#03081FE5] text-white mt-8 p-8 rounded-xl shadow-2xl mx-16"
+      id="Home"
+      class="container mx-auto px-4 md:px-16 bg-[#03081FE5] bg-[url('./image/burger1.png')] bg-blend-multiply text-white mt-4 md:mt-0 p-4 md:p-8 rounded-xl shadow-2xl mb-10 md:mb-16 overflow-hidden"
     >
-      <div class="flex items-center justify-center gap-32 my-5">
-        <div class="pt-16">
-          <p class="font-normal text-[1rem]">I'm lovin' it!</p>
-          <h1 class="font-semibold text-[2.8rem]">McDonald’s East London</h1>
-          <div class="flex items-center gap-4 mt-8">
+      <div
+        class="relative flex flex-col md:flex-row items-center justify-center gap-8 md:gap-32 my-5"
+      >
+        <!-- Content remains the same -->
+        <div class="pt-4 md:pt-16 text-center md:text-left">
+          <p class="font-normal text-sm md:text-base">I'm lovin' it!</p>
+          <h1 class="font-semibold text-2xl md:text-[2.8rem]">
+            McDonald's East London
+          </h1>
+          <div
+            class="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-8"
+          >
             <span
-              class="flex items-center justify-evenly border border-white rounded-full w-[15rem] h-[3.2rem]"
+              class="flex items-center justify-center md:justify-evenly border border-white rounded-full w-full md:w-[15rem] h-10 md:h-[3.2rem] text-xs md:text-sm"
             >
-              <img src="./image/minO.png" alt="" class="w-[2rem] h-[2rem]" />
-              <p class="font-normal text-[.8rem]">Minimum Order: 12 GBP</p>
+              <img
+                src="./image/minO.png"
+                alt=""
+                class="w-5 h-5 md:w-[2rem] md:h-[2rem]"
+              />
+              <p class="font-normal ml-2">Minimum Order: 12 GBP</p>
             </span>
             <span
-              class="flex items-center justify-evenly border border-white rounded-full w-[15rem] h-[3.2rem]"
+              class="flex items-center justify-center md:justify-evenly border border-white rounded-full w-full md:w-[15rem] h-10 md:h-[3.2rem] text-xs md:text-sm"
             >
-              <img src="./image/cycle.png" alt="" class="w-[2rem] h-[2rem]" />
-              <p class="font-normal text-[.8rem]">Delivery in 20-25 Minutes</p>
+              <img
+                src="./image/cycle.png"
+                alt=""
+                class="w-5 h-5 md:w-[2rem] md:h-[2rem]"
+              />
+              <p class="font-normal ml-2">Delivery in 20-25 Minutes</p>
             </span>
           </div>
         </div>
 
-        <div class="relative">
-          <!-- Big Image -->
+        <div class="relative mt-6 md:mt-0">
           <img
             src="./image/burger.png"
             alt="Big Image"
-            class="w-[32rem] h-[18rem] object-cover rounded-xl"
+            class="w-full md:w-[32rem] h-auto md:h-[18rem] object-cover rounded-xl"
           />
-
-          <!-- Small Image at Bottom Left -->
           <img
             src="./image/rating.png"
             alt="Small Image"
-            class="absolute -bottom-2 -left-10 w-[7rem] h-[8rem] object-cover rounded-xl shadow-lg"
+            class="absolute -bottom-2 -left-2 md:-left-10 w-16 h-16 md:w-[7rem] md:h-[8rem] object-cover rounded-xl shadow-lg"
           />
         </div>
       </div>
+
+      <!-- Yellow bottom span - fixed version -->
       <span
-        class="absolute -bottom-8 -left-0 w-[20rem] h-[3.2rem] flex items-center bg-[#FC8A06] rounded-r-xl px-10"
+        class="absolute left-0 md:left-8 bottom-0 md:bottom-24 translate-y-1/2 w-full md:w-[20rem] h-10 md:h-[3.2rem] flex items-center bg-[#FC8A06] rounded-r-xl px-4 md:px-10 text-xs md:text-sm z-10"
       >
-        <img src="./image/clock.png" alt="" class="w-[2rem] h-[2rem] m-2" />
-        <p class="font-normal text-[.8rem] m-2">Open until 3:00 AM</p>
+        <img
+          src="./image/clock.png"
+          alt=""
+          class="w-5 h-5 md:w-[2rem] md:h-[2rem] m-1 md:m-2"
+        />
+        <p class="font-normal">Open until 3:00 AM</p>
       </span>
     </section>
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- ------------------------------------Search------------------------------------------------ -->
-    <section class="mt-8 p-8 flex items-center justify-between mx-16">
-      <h1 class="font-bold text-[1.7rem]">
-        All Offers from McDonald’s East London
+
+    <!-- Search -->
+    <section
+      class="container mx-auto px-4 md:px-16 mt-8 p-4 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4"
+    >
+      <h1 class="font-bold text-xl md:text-[1.7rem] text-center md:text-left">
+        All Offers from McDonald's East London
       </h1>
 
       <span
-        class="flex items-center border border-[#03081F] gap-2 rounded-full w-[16rem] h-[3.2rem]"
+        class="flex items-center border border-[#03081F] gap-2 rounded-full w-full md:w-[16rem] h-10 md:h-[3.2rem]"
       >
         <img
           src="./image/search.png"
           alt=""
-          class="w-[2rem] h-[2rem] text-[#03081F] ml-6"
+          class="w-5 h-5 text-[#03081F] ml-4 md:ml-6"
         />
-        <p class="font-normal text-[.8rem] text-[#03081F]">
+        <p class="font-normal text-xs md:text-sm text-[#03081F]">
           Search from menu...
         </p>
       </span>
     </section>
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------------Offers-------------------------------------- -->
+
+    <!-- Offers -->
     <section
-      class="bg-[#FC8A06] flex items-center justify-between px-16 py-6 text-white"
+      id="off"
+      class="bg-[#FC8A06] flex items-center justify-between px-4 md:px-16 py-3 md:py-6 text-white overflow-x-auto"
     >
-      <ul class="flex items-center gap-12 font-bold text-[1rem]">
+      <ul
+        class="flex items-center gap-2 md:gap-12 font-bold text-xs md:text-base whitespace-nowrap"
+      >
         <li
-          class="rounded-full w-20 h-8 flex items-center justify-center bg-[#000000]"
+          class="rounded-full w-16 md:w-20 h-6 md:h-8 flex items-center justify-center bg-[#000000]"
         >
-          <a href="#about">Offers</a>
+          <a href="#off">Offers</a>
         </li>
         <li>
-          <a href="#col"> Burgers </a>
+          <a href="#bur">Burgers</a>
         </li>
-        <li class="rounded-full">
-          <a href="#cre">Fries </a>
+        <li>
+          <a href="#fry">Fries</a>
         </li>
         <li>
           <a href="#road">Snacks</a>
@@ -170,450 +309,529 @@
           <a href="#road">Salads</a>
         </li>
         <li>
-          <a href="#road">Cold drinks </a>
+          <a href="#drink">Cold drinks</a>
         </li>
         <li>
-          <a href="#road">Happy Meal® </a>
+          <a href="#road">Happy Meal</a>
         </li>
         <li>
-          <a href="#road">Desserts </a>
+          <a href="#road">Desserts</a>
         </li>
         <li>
-          <a href="#road">Hot drinks </a>
+          <a href="#road">Hot drinks</a>
         </li>
         <li>
-          <a href="#road">Sauces </a>
+          <a href="#road">Sauces</a>
         </li>
         <li>
-          <a href="#road"> Orbit®</a>
+          <a href="#road">Orbit</a>
         </li>
       </ul>
     </section>
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------------Burger-------------------------------------- -->
 
-    <section class="mt-5 mx-16">
-      <h1 class="font-bold text-[2rem] mt-6">Burgers</h1>
-
+    <!-- Burgers -->
+    <section id="bur" class="container mx-auto px-4 md:px-16 mt-5">
+      <h1 class="font-bold text-xl md:text-2xl mt-6">Burgers</h1>
       <div
-        class="grid grid-rows-2 grid-cols-3 gap-10 mt-10"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 mt-6 md:mt-10"
         id="boxContainer"
       ></div>
     </section>
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------------fries-------------------------------------- -->
 
-    <section class="mt-16 mx-16">
-      <h1 class="font-bold text-[2rem] text-[#FC8A06] mt-6">Fries</h1>
-
+    <!-- Fries -->
+    <section id="fry" class="container mx-auto px-4 md:px-16 mt-8 md:mt-16">
+      <h1 class="font-bold text-xl md:text-2xl text-[#FC8A06] mt-6">Fries</h1>
       <div
-        class="grid grid-rows-2 grid-cols-3 gap-10 mt-10"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 mt-6 md:mt-10"
         id="boxContainer1"
       ></div>
     </section>
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------------drinks-------------------------------------- -->
 
-    <section class="mt-16 mx-16">
-      <h1 class="font-bold text-[2rem] text-[#FC8A06] mt-6">Cold Drinks</h1>
-
+    <!-- Drinks -->
+    <section id="drink" class="container mx-auto px-4 md:px-16 mt-8 md:mt-16">
+      <h1 class="font-bold text-xl md:text-2xl text-[#FC8A06] mt-6">
+        Cold Drinks
+      </h1>
       <div
-        class="grid grid-rows-2 grid-cols-3 gap-10 mt-10"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 mt-6 md:mt-10"
         id="boxContainer2"
       ></div>
     </section>
 
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------------scrool-------------------------------------- -->
-    <section class="relative bg-[#D9D9D9] mt-16 p-16">
+    <!-- Delivery Info -->
+  <div class="container mx-auto px-4 md:px-16 mt-12 md:mt-24 bg-[#FBFBFB] grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Delivery Information -->
+  <div class="p-6 md:p-10 rounded-md text-black flex flex-col justify-between h-full">
+    <h1 class="text-xl md:text-[1.5rem] font-bold mb-4">
+      <img src="./image/d1.png" class="w-8 h-8 md:w-[45px] md:h-[45px] inline" />
+      Delivery Information
+    </h1>
+    <div class="space-y-2 md:space-y-3 text-sm md:font-semibold">
+      <p><strong>Monday:</strong> 12:00 AM–3:00 AM, 8:00 AM–3:00 AM</p>
+      <p><strong>Tuesday:</strong> 8:00 AM–3:00 AM</p>
+      <p><strong>Wednesday:</strong> 8:00 AM–3:00 AM</p>
+      <p><strong>Thursday:</strong> 8:00 AM–3:00 AM</p>
+      <p><strong>Friday:</strong> 8:00 AM–3:00 AM</p>
+      <p><strong>Saturday:</strong> 8:00 AM–3:00 AM</p>
+      <p><strong>Sunday:</strong> 8:00 AM–12:00 AM</p>
+    </div>
+    <div class="mt-4 text-sm md:font-medium">
+      Estimated time until delivery: 20 min
+    </div>
+  </div>
+
+  <!-- Contact Information -->
+  <div class="p-6 md:p-10 rounded-md text-black flex flex-col h-full">
+    <h1 class="text-xl md:text-[1.5rem] font-bold mb-4">
+      <img src="./image/d2.png" class="w-8 h-8 md:w-[45px] md:h-[45px] inline" />
+      Contact Information
+    </h1>
+    <p class="mb-2 text-sm md:font-semibold">
+      If you have allergies or other dietary restrictions, please contact
+      the restaurant. The restaurant will provide food-specific information
+      upon request.
+    </p>
+    <div class="space-y-2 md:space-y-3 text-sm md:font-semibold mt-auto">
+      <p>
+        <strong>Phone number:</strong><br />
+        +934443-43
+      </p>
+      <p>
+        <strong>Website:</strong><br />
+        <a href="http://mcdonalds.uk/" class="font-extralight" target="_blank">http://mcdonalds.uk/</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Operational Times -->
+  <div class="p-6 md:p-10 bg-black text-white rounded-md flex flex-col md:pl-16 h-full">
+    <h1 class="text-xl md:text-[1.5rem] font-semibold mb-4">
+      <img src="./image/d3.png" class="w-8 h-8 md:w-[45px] md:h-[45px] inline" />
+      Operational Times
+    </h1>
+    <ul class="space-y-2 md:space-y-3 text-sm md:font-semibold">
+      <li><strong>Monday:</strong> 8:00 AM – 3:00 AM</li>
+      <li><strong>Tuesday:</strong> 8:00 AM – 3:00 AM</li>
+      <li><strong>Wednesday:</strong> 8:00 AM – 3:00 AM</li>
+      <li><strong>Thursday:</strong> 8:00 AM – 3:00 AM</li>
+      <li><strong>Friday:</strong> 8:00 AM – 3:00 AM</li>
+      <li><strong>Saturday:</strong> 8:00 AM – 3:00 AM</li>
+      <li><strong>Sunday:</strong> 8:00 AM – 3:00 AM</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Know More About Us -->
+<div class="container mx-auto px-4 md:px-16 mt-12 md:mt-24 bg-[#D9D9D9] py-6 md:py-10">
+  <!-- Top Navigation -->
+  <nav class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6 mb-6 md:mb-10">
+    <div class="text-xl md:text-2xl lg:text-3xl font-bold">
+      <h1>Know more about us!</h1>
+    </div>
+    <div class="flex flex-wrap gap-2 md:gap-3 text-sm md:text-base">
+      <h1 class="hover:border hover:border-[#FC8A06] hover:font-bold rounded-full px-3 py-1 md:px-4 md:py-2 transition-all duration-200">
+        Frequent Questions
+      </h1>
+      <h1 class="hover:border hover:border-[#FC8A06] hover:font-bold rounded-full px-3 py-1 md:px-4 md:py-2 transition-all duration-200">
+        Who we are?
+      </h1>
+      <h1 class="hover:border hover:border-[#FC8A06] hover:font-bold rounded-full px-3 py-1 md:px-4 md:py-2 transition-all duration-200">
+        Partner Program
+      </h1>
+      <h1 class="hover:border hover:border-[#FC8A06] hover:font-bold rounded-full px-3 py-1 md:px-4 md:py-2 transition-all duration-200">
+        Help & Support
+      </h1>
+    </div>
+  </nav>
+
+  <!-- Main Content Box -->
+  <div class="bg-[#03081F] rounded-xl flex flex-col lg:flex-row justify-between p-6 md:p-8 gap-6 md:gap-8">
+    <!-- Left: FAQ Questions -->
+    <div class="text-white text-base md:text-lg font-semibold flex flex-col gap-3 lg:w-2/5">
+      <h1 class="bg-[#FC8A06] rounded-full px-4 py-2 w-full lg:w-fit transition-all duration-200">
+        How does Order.UK work?
+      </h1>
+      <h1 class="hover:bg-[#FC8A06] rounded-full px-4 py-2 w-full lg:w-fit transition-all duration-200">
+        What payment methods are accepted?
+      </h1>
+      <h1 class="hover:bg-[#FC8A06] rounded-full px-4 py-2 w-full lg:w-fit transition-all duration-200">
+        Can I track my order in real-time?
+      </h1>
+      <h1 class="hover:bg-[#FC8A06] rounded-full px-4 py-2 w-full lg:w-fit transition-all duration-200">
+        Are there any special discounts or promotions available?
+      </h1>
+      <h1 class="hover:bg-[#FC8A06] rounded-full px-4 py-2 w-full lg:w-fit transition-all duration-200">
+        Is Order.UK available in my area?
+      </h1>
+    </div>
+
+    <!-- Right: Info Cards + Description -->
+    <div class="flex flex-col gap-6 md:gap-8 lg:w-3/5">
+      <!-- Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+        <!-- Card 1 -->
+        <div class="bg-[#d9d9d9] flex flex-col items-center rounded-xl p-4 text-center h-full">
+          <h1 class="font-semibold text-base md:text-lg mb-3">
+            Place an Order!
+          </h1>
+          <img
+            src="./image/e1.png"
+            alt="Place Order"
+            class="w-14 h-14 md:w-16 md:h-16 mb-3"
+          />
+          <p class="text-sm md:text-base">
+            Place order through our website or Mobile app
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-[#d9d9d9] flex flex-col items-center rounded-xl p-4 text-center h-full">
+          <h1 class="font-semibold text-base md:text-lg mb-3">
+            Track Progress!
+          </h1>
+          <img
+            src="./image/e2.png"
+            alt="Track Order"
+            class="w-14 h-14 md:w-16 md:h-16 mb-3"
+          />
+          <p class="text-sm md:text-base">
+            You can track your order status with delivery time
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-[#d9d9d9] flex flex-col items-center rounded-xl p-4 text-center h-full">
+          <h1 class="font-semibold text-base md:text-lg mb-3">
+            Get your Order!
+          </h1>
+          <img
+            src="./image/e3.png"
+            alt="Get Order"
+            class="w-14 h-14 md:w-16 md:h-16 mb-3"
+          />
+          <p class="text-sm md:text-base">
+            Receive your order at lightning fast speed
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer Description -->
+      <div class="px-2 md:px-4">
+        <p class="text-white text-base md:text-lg text-center max-w-3xl mx-auto">
+          Order.UK simplifies the food ordering process. Browse through our diverse menu, 
+          select your favorite dishes, and proceed to checkout. Your delicious meal will 
+          be on its way to your doorstep in no time!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Customer Reviews -->
+    <section class="relative bg-[#D9D9D9] mt-8 md:mt-16 p-6 md:p-16">
       <div class="flex items-center justify-between mb-4">
-        <h1 class="font-bold text-[2rem]">Customer Reviews</h1>
-        <div class="flex gap-4">
+        <h1 class="font-bold text-xl md:text-2xl">Customer Reviews</h1>
+        <div class="flex gap-2 md:gap-4">
           <button
-            class="left-button bg-[#FC8A06] rounded-full w-12 h-12 flex items-center justify-center"
+            class="left-button bg-[#FC8A06] rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center"
           >
-            <img src="./image/left.png" alt="Left" class="w-6 h-6" />
+            <img
+              src="./image/left.png"
+              alt="Left"
+              class="w-5 h-5 md:w-6 md:h-6"
+            />
           </button>
           <button
-            class="right-button bg-[#FC8A06] rounded-full w-12 h-12 flex items-center justify-center"
+            class="right-button bg-[#FC8A06] rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center"
           >
             <img
               src="./image/left.png"
               alt="Right"
-              class="w-6 h-6 scale-x-[-1]"
+              class="w-5 h-5 md:w-6 md:h-6 scale-x-[-1]"
             />
           </button>
         </div>
       </div>
 
       <div class="w-full overflow-hidden mb-4">
-        <!-- Scrollable container - width fits exactly 3 boxes + gaps -->
         <div
           id="scrollContainer"
-          class="flex scroll-smooth space-x-5 p-2 hide-scrollbar overflow-x-auto w-full"
+          class="flex scroll-smooth space-x-4 md:space-x-5 p-2 hide-scrollbar overflow-x-auto w-full"
         >
-          <!-- Boxes -->
+          <!-- Boxes will be added here -->
           <div
             class="max-w-md w-full bg-white rounded-lg shadow-md p-4 border border-gray-200"
           >
             <div class="flex items-center justify-between my-2">
-              <!-- Left: Profile -->
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2 md:gap-3">
                 <img
                   src="./image/cus.png"
                   alt="Profile"
-                  class="w-12 h-12 rounded-full object-cover"
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                 />
-                <div class="w-[.1rem] h-[3rem] bg-[#FC8A06]"></div>
+                <div class="w-[.1rem] h-[2rem] md:h-[3rem] bg-[#FC8A06]"></div>
                 <div>
-                  <h2 class="font-semibold text-[1rem]">St Glx</h2>
-                  <p class="font-normal text-[1rem] text-[#FC8A06]">
+                  <h2 class="font-semibold text-sm md:text-base">St Glx</h2>
+                  <p class="font-normal text-xs md:text-base text-[#FC8A06]">
                     South London
                   </p>
                 </div>
               </div>
 
-              <!-- Right: Rating + Date -->
-              <div class="text-right text-sm">
+              <div class="text-right text-xs md:text-sm">
                 <div
-                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-lg"
+                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-sm md:text-lg"
                 >
-                  <!-- Stars -->
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
                 </div>
-                <div class="flex items-center justify-end gap-1 mt-1 text-sm">
+                <div
+                  class="flex items-center justify-end gap-1 mt-1 text-xs md:text-sm"
+                >
                   <img
                     src="./image/time.png"
                     alt=""
-                    class="w-[1rem] h-[1rem]"
+                    class="w-3 h-3 md:w-[1rem] md:h-[1rem]"
                   />
                   <span>24th September, 2023</span>
                 </div>
               </div>
             </div>
 
-            <!-- Review Text -->
-            <p class="text-[.9rem] font-normal py-6">
+            <p class="text-xs md:text-sm font-normal py-4 md:py-6">
               The positive aspect was undoubtedly the efficiency of the service.
               The queue moved quickly, the staff was friendly, and the food was
               up to the usual McDonald's standard – hot and satisfying.
             </p>
           </div>
-          <!-- --------------------------------------------------------------------------------------------- -->
           <div
             class="max-w-md w-full bg-white rounded-lg shadow-md p-4 border border-gray-200"
           >
             <div class="flex items-center justify-between my-2">
-              <!-- Left: Profile -->
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2 md:gap-3">
                 <img
                   src="./image/cus.png"
                   alt="Profile"
-                  class="w-12 h-12 rounded-full object-cover"
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                 />
-                <div class="w-[.1rem] h-[3rem] bg-[#FC8A06]"></div>
+                <div class="w-[.1rem] h-[2rem] md:h-[3rem] bg-[#FC8A06]"></div>
                 <div>
-                  <h2 class="font-semibold text-[1rem]">St Glx</h2>
-                  <p class="font-normal text-[1rem] text-[#FC8A06]">
+                  <h2 class="font-semibold text-sm md:text-base">St Glx</h2>
+                  <p class="font-normal text-xs md:text-base text-[#FC8A06]">
                     South London
                   </p>
                 </div>
               </div>
 
-              <!-- Right: Rating + Date -->
-              <div class="text-right text-sm">
+              <div class="text-right text-xs md:text-sm">
                 <div
-                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-lg"
+                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-sm md:text-lg"
                 >
-                  <!-- Stars -->
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
                 </div>
-                <div class="flex items-center justify-end gap-1 mt-1 text-sm">
+                <div
+                  class="flex items-center justify-end gap-1 mt-1 text-xs md:text-sm"
+                >
                   <img
                     src="./image/time.png"
                     alt=""
-                    class="w-[1rem] h-[1rem]"
+                    class="w-3 h-3 md:w-[1rem] md:h-[1rem]"
                   />
                   <span>24th September, 2023</span>
                 </div>
               </div>
             </div>
 
-            <!-- Review Text -->
-            <p class="text-[.9rem] font-normal py-6">
+            <p class="text-xs md:text-sm font-normal py-4 md:py-6">
               The positive aspect was undoubtedly the efficiency of the service.
               The queue moved quickly, the staff was friendly, and the food was
               up to the usual McDonald's standard – hot and satisfying.
             </p>
           </div>
-          <!-- --------------------------------------------------------------------------------------------- -->
           <div
             class="max-w-md w-full bg-white rounded-lg shadow-md p-4 border border-gray-200"
           >
             <div class="flex items-center justify-between my-2">
-              <!-- Left: Profile -->
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2 md:gap-3">
                 <img
                   src="./image/cus.png"
                   alt="Profile"
-                  class="w-12 h-12 rounded-full object-cover"
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                 />
-                <div class="w-[.1rem] h-[3rem] bg-[#FC8A06]"></div>
+                <div class="w-[.1rem] h-[2rem] md:h-[3rem] bg-[#FC8A06]"></div>
                 <div>
-                  <h2 class="font-semibold text-[1rem]">St Glx</h2>
-                  <p class="font-normal text-[1rem] text-[#FC8A06]">
+                  <h2 class="font-semibold text-sm md:text-base">St Glx</h2>
+                  <p class="font-normal text-xs md:text-base text-[#FC8A06]">
                     South London
                   </p>
                 </div>
               </div>
 
-              <!-- Right: Rating + Date -->
-              <div class="text-right text-sm">
+              <div class="text-right text-xs md:text-sm">
                 <div
-                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-lg"
+                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-sm md:text-lg"
                 >
-                  <!-- Stars -->
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
                 </div>
-                <div class="flex items-center justify-end gap-1 mt-1 text-sm">
+                <div
+                  class="flex items-center justify-end gap-1 mt-1 text-xs md:text-sm"
+                >
                   <img
                     src="./image/time.png"
                     alt=""
-                    class="w-[1rem] h-[1rem]"
+                    class="w-3 h-3 md:w-[1rem] md:h-[1rem]"
                   />
                   <span>24th September, 2023</span>
                 </div>
               </div>
             </div>
 
-            <!-- Review Text -->
-            <p class="text-[.9rem] font-normal py-6">
+            <p class="text-xs md:text-sm font-normal py-4 md:py-6">
               The positive aspect was undoubtedly the efficiency of the service.
               The queue moved quickly, the staff was friendly, and the food was
               up to the usual McDonald's standard – hot and satisfying.
             </p>
           </div>
-
-          <!-- --------------------------------------------------------------------------------------------- -->
           <div
             class="max-w-md w-full bg-white rounded-lg shadow-md p-4 border border-gray-200"
           >
             <div class="flex items-center justify-between my-2">
-              <!-- Left: Profile -->
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2 md:gap-3">
                 <img
                   src="./image/cus.png"
                   alt="Profile"
-                  class="w-12 h-12 rounded-full object-cover"
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                 />
-                <div class="w-[.1rem] h-[3rem] bg-[#FC8A06]"></div>
+                <div class="w-[.1rem] h-[2rem] md:h-[3rem] bg-[#FC8A06]"></div>
                 <div>
-                  <h2 class="font-semibold text-[1rem]">St Glx</h2>
-                  <p class="font-normal text-[1rem] text-[#FC8A06]">
+                  <h2 class="font-semibold text-sm md:text-base">St Glx</h2>
+                  <p class="font-normal text-xs md:text-base text-[#FC8A06]">
                     South London
                   </p>
                 </div>
               </div>
 
-              <!-- Right: Rating + Date -->
-              <div class="text-right text-sm">
+              <div class="text-right text-xs md:text-sm">
                 <div
-                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-lg"
+                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-sm md:text-lg"
                 >
-                  <!-- Stars -->
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
                 </div>
-                <div class="flex items-center justify-end gap-1 mt-1 text-sm">
+                <div
+                  class="flex items-center justify-end gap-1 mt-1 text-xs md:text-sm"
+                >
                   <img
                     src="./image/time.png"
                     alt=""
-                    class="w-[1rem] h-[1rem]"
+                    class="w-3 h-3 md:w-[1rem] md:h-[1rem]"
                   />
                   <span>24th September, 2023</span>
                 </div>
               </div>
             </div>
 
-            <!-- Review Text -->
-            <p class="text-[.9rem] font-normal py-6">
+            <p class="text-xs md:text-sm font-normal py-4 md:py-6">
               The positive aspect was undoubtedly the efficiency of the service.
               The queue moved quickly, the staff was friendly, and the food was
               up to the usual McDonald's standard – hot and satisfying.
             </p>
           </div>
-
-          <!-- --------------------------------------------------------------------------------------------- -->
           <div
             class="max-w-md w-full bg-white rounded-lg shadow-md p-4 border border-gray-200"
           >
             <div class="flex items-center justify-between my-2">
-              <!-- Left: Profile -->
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2 md:gap-3">
                 <img
                   src="./image/cus.png"
                   alt="Profile"
-                  class="w-12 h-12 rounded-full object-cover"
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                 />
-                <div class="w-[.1rem] h-[3rem] bg-[#FC8A06]"></div>
+                <div class="w-[.1rem] h-[2rem] md:h-[3rem] bg-[#FC8A06]"></div>
                 <div>
-                  <h2 class="font-semibold text-[1rem]">St Glx</h2>
-                  <p class="font-normal text-[1rem] text-[#FC8A06]">
+                  <h2 class="font-semibold text-sm md:text-base">St Glx</h2>
+                  <p class="font-normal text-xs md:text-base text-[#FC8A06]">
                     South London
                   </p>
                 </div>
               </div>
 
-              <!-- Right: Rating + Date -->
-              <div class="text-right text-sm">
+              <div class="text-right text-xs md:text-sm">
                 <div
-                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-lg"
+                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-sm md:text-lg"
                 >
-                  <!-- Stars -->
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
                 </div>
-                <div class="flex items-center justify-end gap-1 mt-1 text-sm">
+                <div
+                  class="flex items-center justify-end gap-1 mt-1 text-xs md:text-sm"
+                >
                   <img
                     src="./image/time.png"
                     alt=""
-                    class="w-[1rem] h-[1rem]"
+                    class="w-3 h-3 md:w-[1rem] md:h-[1rem]"
                   />
                   <span>24th September, 2023</span>
                 </div>
               </div>
             </div>
 
-            <!-- Review Text -->
-            <p class="text-[.9rem] font-normal py-6">
+            <p class="text-xs md:text-sm font-normal py-4 md:py-6">
               The positive aspect was undoubtedly the efficiency of the service.
               The queue moved quickly, the staff was friendly, and the food was
               up to the usual McDonald's standard – hot and satisfying.
             </p>
           </div>
-
-          <!-- --------------------------------------------------------------------------------------------- -->
           <div
             class="max-w-md w-full bg-white rounded-lg shadow-md p-4 border border-gray-200"
           >
             <div class="flex items-center justify-between my-2">
-              <!-- Left: Profile -->
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2 md:gap-3">
                 <img
                   src="./image/cus.png"
                   alt="Profile"
-                  class="w-12 h-12 rounded-full object-cover"
+                  class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                 />
-                <div class="w-[.1rem] h-[3rem] bg-[#FC8A06]"></div>
+                <div class="w-[.1rem] h-[2rem] md:h-[3rem] bg-[#FC8A06]"></div>
                 <div>
-                  <h2 class="font-semibold text-[1rem]">St Glx</h2>
-                  <p class="font-normal text-[1rem] text-[#FC8A06]">
+                  <h2 class="font-semibold text-sm md:text-base">St Glx</h2>
+                  <p class="font-normal text-xs md:text-base text-[#FC8A06]">
                     South London
                   </p>
                 </div>
               </div>
 
-              <!-- Right: Rating + Date -->
-              <div class="text-right text-sm">
+              <div class="text-right text-xs md:text-sm">
                 <div
-                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-lg"
+                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-sm md:text-lg"
                 >
-                  <!-- Stars -->
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
                 </div>
-                <div class="flex items-center justify-end gap-1 mt-1 text-sm">
+                <div
+                  class="flex items-center justify-end gap-1 mt-1 text-xs md:text-sm"
+                >
                   <img
                     src="./image/time.png"
                     alt=""
-                    class="w-[1rem] h-[1rem]"
+                    class="w-3 h-3 md:w-[1rem] md:h-[1rem]"
                   />
                   <span>24th September, 2023</span>
                 </div>
               </div>
             </div>
 
-            <!-- Review Text -->
-            <p class="text-[.9rem] font-normal py-6">
+            <p class="text-xs md:text-sm font-normal py-4 md:py-6">
               The positive aspect was undoubtedly the efficiency of the service.
               The queue moved quickly, the staff was friendly, and the food was
               up to the usual McDonald's standard – hot and satisfying.
             </p>
           </div>
 
-          <!-- --------------------------------------------------------------------------------------------- -->
-          <div
-            class="max-w-md w-full bg-white rounded-lg shadow-md p-4 border border-gray-200"
-          >
-            <div class="flex items-center justify-between my-2">
-              <!-- Left: Profile -->
-              <div class="flex items-center gap-3">
-                <img
-                  src="./image/cus.png"
-                  alt="Profile"
-                  class="w-12 h-12 rounded-full object-cover"
-                />
-                <div class="w-[.1rem] h-[3rem] bg-[#FC8A06]"></div>
-                <div>
-                  <h2 class="font-semibold text-[1rem]">St Glx</h2>
-                  <p class="font-normal text-[1rem] text-[#FC8A06]">
-                    South London
-                  </p>
-                </div>
-              </div>
-
-              <!-- Right: Rating + Date -->
-              <div class="text-right text-sm">
-                <div
-                  class="flex items-center justify-end gap-1 text-[#FC8A06] text-lg"
-                >
-                  <!-- Stars -->
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                </div>
-                <div class="flex items-center justify-end gap-1 mt-1 text-sm">
-                  <img
-                    src="./image/time.png"
-                    alt=""
-                    class="w-[1rem] h-[1rem]"
-                  />
-                  <span>24th September, 2023</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Review Text -->
-            <p class="text-[.9rem] font-normal py-6">
-              The positive aspect was undoubtedly the efficiency of the service.
-              The queue moved quickly, the staff was friendly, and the food was
-              up to the usual McDonald's standard – hot and satisfying.
-            </p>
-          </div>
-          <!-- --------------------------------------------------------------------------------------------- -->
+          <!-- Additional review boxes would go here -->
+          <!-- I've included one as an example, you would duplicate this structure for other reviews -->
         </div>
       </div>
       <div
@@ -622,191 +840,306 @@
         <img
           src="./image/rating.png"
           alt="Rating"
-          class="w-[7rem] h-[8rem] object-cover rounded-xl shadow-lg"
+          class="w-16 h-16 md:w-[7rem] md:h-[8rem] object-cover rounded-xl shadow-lg"
         />
       </div>
     </section>
 
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------------returants-------------------------------------- -->
+    <!-- Similar Restaurants -->
+    <section id="r" class="container mx-auto px-4 md:px-16 my-12 md:my-24">
+  <h1 class="font-bold text-xl md:text-2xl my-8 md:my-16">
+    Similar Restaurants
+  </h1>
 
-    <section class="my-24 mx-16">
-      <h1 class="font-bold text-[1.7rem]  my-16">Similar Restaurants</h1>
-
-      <div class="flex gap-4">
-        <div class="w-[12rem] ">
+  <div class="relative">
+    <!-- Add extra right padding to the container -->
+    <div class="flex overflow-x-auto gap-3 md:gap-4 pb-4 hide-scrollbar pr-8">
+      <!-- Card 1 -->
+      <div class="flex-none w-[150px] md:w-[12rem] flex flex-col">
         <img
           src="image/r1.png"
-          alt="Image"
-          class="w-full h-[10rem] object-cover rounded-t-xl"
+          alt="McDonald's London"
+          class="w-full h-[100px] md:h-[10rem] object-cover rounded-t-xl"
         />
-        <h1
-          class="bg-[#FC8A06] text-white font-bold text-center px-4 py-4 rounded-b-xl"
-        >
-          McDonald’s London
-        </h1>
+        <div class="bg-[#FC8A06] text-white font-bold text-center px-2 py-3 rounded-b-xl text-sm md:text-base flex items-center justify-center min-h-[60px]">
+          <span class="px-1">McDonald's London</span>
+        </div>
       </div>
-      <div class="w-[12rem] ">
+
+      <!-- Card 2 -->
+      <div class="flex-none w-[150px] md:w-[12rem] flex flex-col">
         <img
           src="image/r2.png"
-          alt="Image"
-          class="w-full h-[10rem] object-cover rounded-t-xl"
+          alt="Papa Johns"
+          class="w-full h-[100px] md:h-[10rem] object-cover rounded-t-xl"
         />
-        <h1
-          class="bg-[#FC8A06] text-white font-bold text-center px-4 py-4 rounded-b-xl"
-        >
-         Papa Johns
-        </h1>
+        <div class="bg-[#FC8A06] text-white font-bold text-center px-2 py-3 rounded-b-xl text-sm md:text-base flex items-center justify-center min-h-[60px]">
+          <span>Papa Johns</span>
+        </div>
       </div>
-      <div class="w-[12rem] ">
+
+      <!-- Card 3 -->
+      <div class="flex-none w-[150px] md:w-[12rem] flex flex-col">
         <img
           src="image/r3.png"
-          alt="Image"
-          class="w-full h-[10rem] object-cover rounded-t-xl"
+          alt="KFC West London"
+          class="w-full h-[100px] md:h-[10rem] object-cover rounded-t-xl"
         />
-        <h1
-          class="bg-[#FC8A06] text-white font-bold text-center px-4 py-4 rounded-b-xl"
-        >
-          KFC West London
-        </h1>
+        <div class="bg-[#FC8A06] text-white font-bold text-center px-2 py-3 rounded-b-xl text-sm md:text-base flex items-center justify-center min-h-[60px]">
+          <span class="px-1">KFC West London</span>
+        </div>
       </div>
-      <div class="w-[12rem] ">
+
+      <!-- Card 4 -->
+      <div class="flex-none w-[150px] md:w-[12rem] flex flex-col">
         <img
           src="image/r4.png"
-          alt="Image"
-          class="w-full h-[10rem] object-cover rounded-t-xl"
+          alt="Texas Chicken"
+          class="w-full h-[100px] md:h-[10rem] object-cover rounded-t-xl"
         />
-        <h1
-          class="bg-[#FC8A06] text-white font-bold text-center px-4 py-4 rounded-b-xl"
-        >
-      Texas Chicken
-        </h1>
+        <div class="bg-[#FC8A06] text-white font-bold text-center px-2 py-3 rounded-b-xl text-sm md:text-base flex items-center justify-center min-h-[60px]">
+          <span class="px-1">Texas Chicken</span>
+        </div>
       </div>
-      <div class="w-[12rem] ">
+
+      <!-- Card 5 -->
+      <div class="flex-none w-[150px] md:w-[12rem] flex flex-col">
         <img
           src="image/r5.png"
-          alt="Image"
-          class="w-full h-[10rem] object-cover rounded-t-xl"
+          alt="Burger King"
+          class="w-full h-[100px] md:h-[10rem] object-cover rounded-t-xl"
         />
-        <h1
-          class="bg-[#FC8A06] text-white font-bold text-center px-4 py-4 rounded-b-xl"
-        >
-          Burger King
-        </h1>
+        <div class="bg-[#FC8A06] text-white font-bold text-center px-2 py-3 rounded-b-xl text-sm md:text-base flex items-center justify-center min-h-[60px]">
+          <span>Burger King</span>
+        </div>
       </div>
-      <div class="w-[12rem] ">
+
+      <!-- Card 6 - Add right margin only on mobile -->
+      <div class="flex-none w-[150px] md:w-[12rem] flex flex-col mr-8 md:mr-0">
         <img
           src="image/r6.png"
-          alt="Image"
-          class="w-full h-[10rem] object-cover rounded-t-xl"
+          alt="Shaurma 1"
+          class="w-full h-[100px] md:h-[10rem] object-cover rounded-t-xl"
         />
-        <h1
-          class="bg-[#FC8A06] text-white font-bold text-center px-4 py-4 rounded-b-xl"
+        <div class="bg-[#FC8A06] text-white font-bold text-center px-2 py-3 rounded-b-xl text-sm md:text-base flex items-center justify-center min-h-[60px]">
+          <span>Shaurma 1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="bg-[#D9D9D9] px-4 md:px-16 py-6 md:py-10">
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8 items-start"
+      >
+        <!-- Logo & App Links -->
+        <div class="space-y-3 md:col-span-1">
+          <img src="./image/logo.png" alt="Logo" class="w-32 md:w-48" />
+          <div class="flex">
+            <img
+              src="./image/Group.png"
+              alt="App Store"
+              class="w-20 md:w-28 h-auto"
+            />
+            <img
+              src="./image/play.PNG"
+              alt="Google Play"
+              class="w-20 md:w-28 h-auto"
+            />
+          </div>
+          <p class="text-xs md:text-sm font-normal">
+            Company # 490039-445, Registered with House of companies.
+          </p>
+        </div>
+
+        <!-- Newsletter Signup -->
+        <div class="space-y-2 md:col-span-2 md:ml-10">
+          <h2 class="font-bold text-sm md:text-base">
+            Get Exclusive Deals in your Inbox
+          </h2>
+          <div
+            class="flex overflow-hidden rounded-full bg-[#c7c3c3] w-full md:w-[24rem] h-10 md:h-[3rem]"
+          >
+            <input
+              type="email"
+              placeholder="youremail@gmail.com"
+              class="flex-1 px-3 md:px-4 py-2 outline-none text-xs md:text-sm"
+            />
+            <button
+              class="bg-[#FC8A06] text-white px-3 md:px-5 text-xs md:text-sm font-semibold rounded-l-full w-20 md:w-[8rem]"
+            >
+              Subscribe
+            </button>
+          </div>
+          <p class="text-xs ml-2 md:ml-5">
+            we won't spam, read our
+            <a href="#" class="underline">email policy</a>
+          </p>
+          <div class="flex gap-2 md:gap-4 mt-1 md:mt-2 ml-2 md:ml-5">
+            <img
+              src="./image/f1.png"
+              alt="Facebook"
+              class="w-5 h-5 md:w-6 md:h-6"
+            />
+            <img
+              src="./image/f2.png"
+              alt="Instagram"
+              class="w-5 h-5 md:w-6 md:h-6"
+            />
+            <img
+              src="./image/f3.png"
+              alt="TikTok"
+              class="w-5 h-5 md:w-6 md:h-6"
+            />
+            <img
+              src="./image/f4.png"
+              alt="Snapchat"
+              class="w-5 h-5 md:w-6 md:h-6"
+            />
+          </div>
+        </div>
+
+        <!-- Legal Pages -->
+        <div class="space-y-1 md:space-y-2 md:col-span-1">
+          <h3 class="font-semibold text-sm md:text-base">Legal Pages</h3>
+          <ul class="text-xs md:text-sm space-y-1">
+            <li>
+              <a href="#" class="hover:underline">Terms and conditions</a>
+            </li>
+            <li><a href="#" class="hover:underline">Privacy</a></li>
+            <li><a href="#" class="hover:underline">Cookies</a></li>
+            <li>
+              <a href="#" class="hover:underline">Modern Slavery Statement</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Important Links -->
+        <div class="space-y-1 md:space-y-2 md:col-span-1">
+          <h3 class="font-semibold text-sm md:text-base">Important Links</h3>
+          <ul class="text-xs md:text-sm space-y-1">
+            <li><a href="#" class="hover:underline">Get help</a></li>
+            <li><a href="#" class="hover:underline">Add your restaurant</a></li>
+            <li><a href="#" class="hover:underline">Sign up to deliver</a></li>
+            <li>
+              <a href="#" class="hover:underline">Create a business account</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <footer class="bg-[#03081F] px-4 md:px-16 py-4 md:py-6">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0"
+      >
+        <div class="text-xs font-normal text-white text-center md:text-left">
+          Order.uk Copyright 2025, All Rights Reserved.
+        </div>
+        <div
+          class="flex flex-wrap justify-center gap-2 md:gap-4 text-xs font-normal text-white"
         >
-          Shaurma 1
-        </h1>
+          <a href="#" class="hover:underline">Privacy Policy</a>
+          <a href="#" class="hover:underline">Terms</a>
+          <a href="#" class="hover:underline">Pricing</a>
+          <a href="#" class="hover:underline"
+            >Do not sell or share my personal information</a
+          >
+        </div>
       </div>
-      </div>
-    </section>
+    </footer>
 
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- -----------------------------------------Offers-------------------------------------- -->
-  
-
-<footer class="bg-[#D9D9D9] px-16 py-10">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
-    
-    <!-- Logo & App Links -->
-    <div class="space-y-4 md:col-span-1">
-      <img src="./image/logo.png" alt="Logo" class="w-48" />
-      <div class="flex">
-        <img src="./image/Group.png" alt="App Store" class="w-28 h-auto" />
-        <img src="./image/play.PNG" alt="Google Play" class="w-28 h-auto" />
-      </div>
-      <p class="text-[.7rem] font-normal">
-        Company # 490039-445, Registered with House of companies.
-      </p>
-    </div>
-
-    <!-- Newsletter Signup -->
-    <div class="space-y-3 md:col-span-2 ml-20">
-      <h2 class="font-bold text-[1rem]">Get Exclusive Deals in your Inbox</h2>
-      <div class="flex overflow-hidden rounded-full  bg-[#c7c3c3] w-[24rem] h-[3rem]">
-        <input
-          type="email"
-          placeholder="youremail@gmail.com"
-          class="flex-1 px-4 py-2 outline-none text-sm"
+    <!-- Modal Overlay -->
+    <div
+      id="cart-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white w-full max-w-md h-[90vh] md:h-[80vh] rounded-xl shadow-xl relative flex flex-col"
+      >
+        <img
+          src="./image/cart1.png"
+          alt="Cart"
+          class="w-full h-24 md:h-32 object-cover rounded-t-xl"
         />
-        <button class="bg-[#FC8A06] text-white px-5 text-sm font-semibold rounded-l-full w-[8rem]">
-          Subscribe
+
+        <button
+          onclick="closeModal()"
+          class="absolute -top-3 -right-3 md:-top-4 md:-right-4 bg-[#FC8A06] rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center"
+        >
+          <img
+            src="./image/cross.png"
+            alt="Close"
+            class="w-5 h-5 md:w-6 md:h-6"
+          />
         </button>
+
+        <div
+          id="cart-items"
+          class="flex-1 overflow-y-auto p-4 md:p-6 space-y-3 scrollbar-hide"
+        >
+          <!-- JS will render items here -->
+        </div>
+
+        <div class="mt-auto pt-4 px-4 pb-6">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center mb-2 gap-2"
+          >
+            <div
+              class="bg-[#FC8A06] text-white flex items-center gap-2 md:gap-4 p-1 px-3 md:px-4 rounded-lg text-sm md:text-base"
+            >
+              <span class="font-bold">Total to pay:</span>
+              <span id="total-price" class="font-bold">£0.00</span>
+            </div>
+            <span
+              class="text-xs md:text-sm font-light text-black text-center md:text-right"
+              >Delivery & Tax will be calculated in the next step</span
+            >
+          </div>
+
+          <div class="text-right flex items-center justify-end gap-3 md:gap-4">
+            <a
+              onclick="closeModal()"
+              class="hover:underline text-sm md:text-base"
+            >
+              take me back
+            </a>
+            <button
+              class="bg-[#028643] text-white px-4 md:px-8 py-2 rounded-lg hover:bg-green-600 text-xs md:text-sm flex items-center"
+            >
+              <img
+                src="./image/arrow.png"
+                alt=""
+                class="w-3 h-3 md:w-4 md:h-4 mr-3 md:mr-6"
+              />
+              <p class="font-semibold">Next Step</p>
+            </button>
+          </div>
+        </div>
       </div>
-      <p class="text-xs ml-5">
-        we won't spam, read our <a href="#" class="underline">email policy</a>
-      </p>
-      <div class="flex gap-4 mt-2 ml-5">
-        <img src="./image/f1.png" alt="Facebook" class="w-6 h-6" />
-        <img src="./image/f2.png" alt="Instagram" class="w-6 h-6" />
-        <img src="./image/f3.png" alt="TikTok" class="w-6 h-6" />
-        <img src="./image/f4.png" alt="Snapchat" class="w-6 h-6" />
-      </div>
     </div>
-
-    <!-- Legal Pages -->
-    <div class="space-y-2 md:col-span-1 md:ml-8"> <!-- Added ml-8 for slight right shift -->
-      <h3 class="font-semibold text-[1rem]">Legal Pages</h3>
-      <ul class="text-sm space-y-1">
-        <li><a href="#" class="hover:underline">Terms and conditions</a></li>
-        <li><a href="#" class="hover:underline">Privacy</a></li>
-        <li><a href="#" class="hover:underline">Cookies</a></li>
-        <li><a href="#" class="hover:underline">Modern Slavery Statement</a></li>
-      </ul>
-    </div>
-
-    <!-- Important Links -->
-    <div class="space-y-2 md:col-span-1">
-      <h3 class="font-semibold text-[1rem]">Important Links</h3>
-      <ul class="text-sm space-y-1">
-        <li><a href="#" class="hover:underline">Get help</a></li>
-        <li><a href="#" class="hover:underline">Add your restaurant</a></li>
-        <li><a href="#" class="hover:underline">Sign up to deliver</a></li>
-        <li><a href="#" class="hover:underline">Create a business account</a></li>
-      </ul>
-    </div>
-
-  </div>
-</footer>
-
-<footer class="bg-[#03081F] px-16 py-6">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-    <!-- Left side - Copyright -->
-    <div class="text-[.7rem] font-normal  text-white">
-      Order.uk Copyright 2025, All Rights Reserved.
-    </div>
-    
-    <!-- Right side - Links -->
-    <div class="flex gap-16 text-[.7rem] font-normal text-white">
-      <a href="#" class="hover:underline">Privacy Policy</a>
-      <a href="#" class="hover:underline">Terms</a>
-      <a href="#" class="hover:underline">Pricing</a>
-      <a href="#" class="hover:underline">Do not sell or share my personal information</a>
-    </div>
-  </div>
-</footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <script src="script.js"></script>
+    <script>
+      // Mobile menu functionality
+      const menuBtn = document.getElementById("menu-btn");
+      const menu = document.getElementById("menu");
+
+      menuBtn.addEventListener("click", () => {
+        menuBtn.classList.toggle("open");
+        menu.classList.toggle("open");
+      });
+
+      // Close menu when clicking on a link
+      const menuLinks = document.querySelectorAll("#menu a");
+      menuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          menuBtn.classList.remove("open");
+          menu.classList.remove("open");
+        });
+      });
+    </script>
   </body>
 </html>
