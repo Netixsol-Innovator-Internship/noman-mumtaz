@@ -505,7 +505,7 @@ const q = [
           "George Orwell",
           "Aldous Huxley",
           "Ernest Hemingway",
-          "F. Scott Fitzgerald",S
+          "F. Scott Fitzgerald",
         ],
         answer: "George Orwell",
       },
