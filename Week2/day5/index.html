@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QuizMaster</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="./src/output.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body class="bg-white text-black font-[Manrope] w-full">
+  <nav class="flex items-center justify-between px-12 py-4 border border-b-gray">
+    <a href="#" onclick="showAuthedSection('home')" class="flex items-center gap-2">
+      <img src="./image/logo.png" alt="QuizMaster Logo" class="w-6 h-6" />
+      <h1 class="font-bold text-xl">QuizMaster</h1>
+    </a>
+
+    <ul class="flex items-center gap-10 font-medium text-base">
+      <li><a href="#" onclick="showAuthedSection('home')">Home</a></li>
+      <li><a href="#" onclick="showAuthedSection('quizzes')">Quizzes</a></li>
+      <li><a href="#" onclick="showAuthedSection('leaderboard')">Leaderboard</a></li>
+      <li id="profileNavItem" style="display: none;">
+        <a href="#" onclick="showAuthedSection('profile')">Profile</a>
+      </li>
+      <li id="logoutBtn" style="display: none;">
+        <a href="#" onclick="logout()" class="text-red-500">Logout</a>
+      </li>
+      <li class="bg-[#E5E8EB] p-2 rounded-xl">
+        <img src="./image/bell.png" alt="Notifications" class="w-6 h-6" />
+      </li>
+      <li>
+        <a href="#" class="text-lg">
+          <img src="./image/p1.png" alt="Profile" class="w-10 h-10 rounded-full" />
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home" style="display: none;">
+    <div class="mx-48 my-10 p-2">
+      <div class="bg-[url('./image/p2.png')] bg-[#00000066] bg-blend-multiply w-full h-96 bg-no-repeat bg-cover text-white flex items-center flex-col justify-center text-center space-y-4 pt-24 rounded-lg">
+        <h1 class="font-extrabold text-5xl">Welcome to QuizMaster</h1>
+        <p class="font-normal text-base max-w-xl">
+          Test your knowledge with our engaging quizzes. Compete with friends
+          and climb the leaderboard. Start your quiz journey today!
+        </p>
+        <a href="#" onclick="showAuthedSection('quizzes')" class="bg-[#0D78F2] font-bold text-base px-6 py-3 rounded-lg inline-block text-white text-center">
+          Get Started
+        </a>
+      </div>
+      <div class="py-6 space-y-4">
+        <h1 class="font-extrabold text-3xl">Key Features</h1>
+        <p class="font-normal text-base max-w-xl">
+          Explore the exciting features that make QuizMaster the ultimate quiz app.
+        </p>
+      </div>
+      <div class="py-6 flex justify-between gap-2">
+        <div class="p-4 space-y-3 border rounded-lg">
+          <img src="./image/a1.png" alt="Timer" class="w-6 h-6" />
+          <h1 class="font-bold text-base">Timed Quizzes</h1>
+          <p class="font-normal text-base max-w-xl">
+            Challenge yourself with timed quizzes to test your speed and accuracy.
+          </p>
+        </div>
+        <div class="p-4 space-y-3 border rounded-lg">
+          <img src="./image/a2.png" alt="Leaderboard" class="w-6 h-6" />
+          <h1 class="font-bold text-base">Leaderboard</h1>
+          <p class="font-normal text-base max-w-xl">
+            Compete with friends and other users to see who can achieve the highest scores.
+          </p>
+        </div>
+        <div class="p-4 space-y-3 border rounded-lg">
+          <img src="./image/a3.png" alt="Progress" class="w-6 h-6" />
+          <h1 class="font-bold text-base">Progress Tracking</h1>
+          <p class="font-normal text-base max-w-xl">
+            Track your progress and see how you improve over time with detailed performance reports.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login Section -->
+  <section id="login" >
+    <div class="mx-48 my-10 p-2">
+      <h1 class="font-extrabold text-3xl mb-8 text-center">Welcome Back</h1>
+      <form id="loginForm" class="w-1/2 space-y-6 mx-auto">
+        <input id="loginEmail" type="email" class="w-full px-4 py-3 border rounded-lg" placeholder="Email" required />
+        <input id="loginPassword" type="password" class="w-full px-4 py-3 border rounded-lg" placeholder="Password" required />
+        <div class="text-right">
+          <a href="#" class="text-sm text-[#0D78F2]">Forgot password?</a>
+        </div>
+        <button type="submit" class="w-full bg-[#0D78F2] text-white font-bold text-base px-6 py-3 rounded-lg">
+          Log in
+        </button>
+      </form>
+      <p class="mt-6 text-center font-normal text-base">
+        Don't have an account?
+        <a href="#" onclick="showSection('signup')" class="text-[#0D78F2] font-medium">Sign up</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Signup Section -->
+  <section id="signup" style="display: none;">
+    <div class="mx-48 my-10 p-2">
+      <h1 class="font-extrabold text-3xl mb-8 text-center">Create your account</h1>
+      <form id="signupForm" class="w-1/2 space-y-6 mx-auto">
+        <input id="fullName" type="text" class="w-full px-4 py-3 border rounded-lg" placeholder="Full Name" required />
+        <input id="email" type="email" class="w-full px-4 py-3 border rounded-lg" placeholder="Email" required />
+        <input id="password" type="password" class="w-full px-4 py-3 border rounded-lg" placeholder="Password" required />
+        <input id="confirmPassword" type="password" class="w-full px-4 py-3 border rounded-lg" placeholder="Confirm Password" required />
+        <button type="submit" class="w-full bg-[#0D78F2] text-white font-bold text-base px-6 py-3 rounded-lg">
+          Sign Up
+        </button>
+      </form>
+      <p class="mt-6 text-center font-normal text-base">
+        Already have an account?
+        <a href="#" onclick="showSection('login')" class="text-[#0D78F2] font-medium">Sign in</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Profile Section -->
+  <section id="profile" style="display: none;" class="max-w-4xl mx-auto py-12 px-4">
+    <div class="flex flex-col items-center gap-2">
+      <img src="./image/p1.png" alt="Profile" class="w-24 h-24 rounded-full">
+      <h2 class="text-2xl font-bold">User Name</h2>
+      <p class="text-gray-500">User bio goes here</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <p class="text-gray-500">Full Name</p>
+        <p class="font-medium">John Doe</p>
+      </div>
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <p class="text-gray-500">Email</p>
+        <p class="font-medium">john@example.com</p>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 p-4 rounded-lg mt-10 space-y-6">
+      <h3 class="text-xl font-bold">About Me</h3>
+      <div>
+        <p class="font-medium">Bio information will appear here</p>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <h3 class="text-xl font-bold mb-6">Quiz History</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="py-3 px-6 text-left">Quiz Name</th>
+              <th class="py-3 px-6 text-left">Score</th>
+              <th class="py-3 px-6 text-left">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Quiz history will be populated here by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quizzes Section -->
+  <section id="quizzes" style="display: none;">
+  <div class="mx-48 my-10 p-2">
+    <!-- Heading and Filters -->
+    <div class="space-y-6">
+      <h1 class="font-extrabold text-3xl">Select a Quiz</h1>
+      <div class="flex flex-wrap gap-3">
+        <button class="px-4 py-2 rounded-lg bg-[#E5E8EB] font-medium">All</button>
+        <button class="px-4 py-2 rounded-lg bg-[#E5E8EB] font-medium">Science</button>
+        <button class="px-4 py-2 rounded-lg bg-[#E5E8EB] font-medium">History</button>
+        <button class="px-4 py-2 rounded-lg bg-[#E5E8EB] font-medium">Literature</button>
+        <button class="px-4 py-2 rounded-lg bg-[#E5E8EB] font-medium">Mathematics</button>
+      </div>
+    </div>
+
+    <!-- Featured Quizzes -->
+    <div class="py-8 space-y-4">
+      <h2 class="font-bold text-2xl">Featured Quizzes</h2>
+      <div class="grid grid-cols-3 gap-6">
+        <div onclick="showAuthedSection('quizque')">
+          <img src="./image/q1.png" alt="The Universe" class="rounded-lg w-full h-48 object-cover" />
+          <h3 class="mt-2 font-semibold">The Universe</h3>
+          <p class="text-sm text-gray-600">Test your knowledge about the cosmos.</p>
+        </div>
+        <div onclick="showAuthedSection('quizque')">
+          <img src="./image/q2.png" alt="Ancient Civilizations" class="rounded-lg w-full h-48 object-cover" />
+          <h3 class="mt-2 font-semibold">Ancient Civilizations</h3>
+          <p class="text-sm text-gray-600">Explore the mysteries of ancient cultures.</p>
+        </div>
+        <div onclick="showAuthedSection('quizque')">
+          <img src="./image/q3.png" alt="Shakespearean Plays" class="rounded-lg w-full h-48 object-cover" />
+          <h3 class="mt-2 font-semibold">Shakespearean Plays</h3>
+          <p class="text-sm text-gray-600">Dive into the world of the bard.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Quizzes -->
+    <div class="py-8 space-y-4">
+      <h2 class="font-bold text-2xl">All Quizzes</h2>
+      <div class="grid grid-cols-1 gap-6">
+        <div onclick="showAuthedSection('quizque')" class="flex items-center justify-between gap-4 border p-4 rounded-lg">
+           <div>
+            <h3 class="font-semibold">General Knowledge</h3>
+            <p class="text-sm text-gray-600">Test your overall knowledge with a mix of questions.</p>
+          </div><img src="./image/q4.png" alt="General Knowledge" class="w-64 h-48 object-cover rounded-lg" />
+         
+        </div>
+        <div onclick="showAuthedSection('quizque')" class="flex items-center  justify-between gap-4 border p-4 rounded-lg">
+           <div>
+            <h3 class="font-semibold">Science</h3>
+            <p class="text-sm text-gray-600">Explore the wonders of science from biology to physics.</p>
+          </div><img src="./image/q5.png" alt="Science" class="w-64 h-48 object-cover rounded-lg" />
+         
+        </div>
+        <div  onclick="showAuthedSection('quizque')" class="flex items-center justify-between gap-4 border p-4 rounded-lg">
+         <div>
+            <h3 class="font-semibold">History</h3>
+            <p class="text-sm text-gray-600">Journey through time and learn about historical events.</p>
+          </div> <img src="./image/q6.png" alt="History" class="w-64 h-48 object-cover rounded-lg" />
+          
+        </div>
+        <div onclick="showAuthedSection('quizque')" class="flex items-center justify-between gap-4 border p-4 rounded-lg">
+          <div>
+            <h3 class="font-semibold">Literature</h3>
+            <p class="text-sm text-gray-600">Discover the world of books and authors.</p>
+          </div><img src="./image/q7.png" alt="Literature" class="w-64 h-48 object-cover rounded-lg" />
+          
+        </div>
+        <div onclick="showAuthedSection('quizque')" class="flex items-center justify-between  gap-4 border p-4 rounded-lg">
+<div>
+            <h3 class="font-semibold">Mathematics</h3>
+            <p class="text-sm text-gray-600">Challenge your math skills with various problems.</p>
+          </div><img src="./image/q8.png" alt="Mathematics" class="w-64 h-48 object-cover rounded-lg" />
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   
+</section>
+<section id="quizque" style="display: none;">
+    <div id="boxContainer" class="mx-48 my-10 p-2">
+      
+    </div>
+  </section>
+
+
+  <!-- Leaderboard Section -->
+
+
+  <script src="script.js"></script>
+</body>
+</html>
