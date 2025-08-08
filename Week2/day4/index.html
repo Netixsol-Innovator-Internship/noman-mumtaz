@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tip Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'very-dark-cyan': 'hsl(183, 100%, 15%)',
+              'dark-grayish-cyan': 'hsl(186, 14%, 43%)',
+              'grayish-cyan': 'hsl(184, 14%, 56%)',
+              'light-grayish-cyan': 'hsl(185, 41%, 84%)',
+              'very-light-grayish-cyan': 'hsl(189, 41%, 97%)',
+              'error-red': 'hsl(0, 79%, 63%)',
+            },
+            fontFamily: {
+              'space-mono': ['Space Mono', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @media (max-width: 375px) {
+        .input-container {
+          margin-top: 0.5rem;
+        }
+        .tip-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-light-grayish-cyan font-space-mono min-h-screen flex flex-col items-center justify-center py-8 px-4 sm:px-6">
+    <main class="w-full max-w-4xl mx-auto">
+      <div class="mb-8 sm:mb-10 flex justify-center">
+        <img src="./images/logo.svg" class="w-16 sm:w-20" alt="Splitter logo" />
+      </div>
+
+      <div class="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 grid md:grid-cols-2 gap-6 sm:gap-8">
+        <!-- Left side -->
+        <div class="space-y-4 sm:space-y-6">
+          <!-- Bill Input -->
+          <div>
+            <div class="flex justify-between items-center">
+              <label class="text-dark-grayish-cyan text-sm">Bill</label>
+              <span id="errorMessage1" class="text-error-red text-sm hidden">Invalid Input</span>
+            </div>
+            <div class="relative mt-1 sm:mt-2 input-container">
+              <img src="./images/icon-dollar.svg" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Dollar icon" />
+              <input
+                type="text"
+                class="w-full bg-very-light-grayish-cyan text-very-dark-cyan text-right text-lg sm:text-xl py-1 sm:py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                placeholder="0"
+                id="billInput"
+              />
+            </div>
+          </div>
+
+          <!-- Tip Selection -->
+          <div>
+            <label class="text-dark-grayish-cyan text-sm">Select Tip %</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mt-2 sm:mt-3 tip-grid">
+              <button class="tip-btn bg-very-dark-cyan text-white text-lg sm:text-xl py-1 sm:py-2 rounded hover:bg-cyan-300 hover:text-very-dark-cyan transition-colors" data-tip="5">5%</button>
+              <button class="tip-btn bg-very-dark-cyan text-white text-lg sm:text-xl py-1 sm:py-2 rounded hover:bg-cyan-300 hover:text-very-dark-cyan transition-colors" data-tip="10">10%</button>
+              <button class="tip-btn bg-very-dark-cyan text-white text-lg sm:text-xl py-1 sm:py-2 rounded hover:bg-cyan-300 hover:text-very-dark-cyan transition-colors" data-tip="15">15%</button>
+              <button class="tip-btn bg-very-dark-cyan text-white text-lg sm:text-xl py-1 sm:py-2 rounded hover:bg-cyan-300 hover:text-very-dark-cyan transition-colors" data-tip="25">25%</button>
+              <button class="tip-btn bg-very-dark-cyan text-white text-lg sm:text-xl py-1 sm:py-2 rounded hover:bg-cyan-300 hover:text-very-dark-cyan transition-colors" data-tip="50">50%</button>
+              <input
+                type="text"
+                class="bg-very-light-grayish-cyan text-center text-lg sm:text-xl rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 py-1 sm:py-2"
+                placeholder="Custom"
+                id="customTip"
+              />
+            </div>
+          </div>
+
+          <!-- Number of People -->
+          <div>
+            <div class="flex justify-between items-center">
+              <label class="text-dark-grayish-cyan text-sm">Number of People</label>
+              <span id="errorMessage" class="text-error-red text-sm hidden">Invalid Input</span>
+            </div>
+            <div class="relative mt-1 sm:mt-2 input-container">
+              <img src="./images/icon-person.svg" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Person icon" />
+              <input
+                type="text"
+                class="w-full bg-very-light-grayish-cyan text-very-dark-cyan text-right text-lg sm:text-xl py-1 sm:py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                placeholder="0"
+                id="peopleInput"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side -->
+        <div class="bg-very-dark-cyan rounded-xl p-5 sm:p-6 flex flex-col justify-between mt-6 sm:mt-0">
+          <div class="space-y-4 sm:space-y-8">
+            <!-- Tip Amount -->
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-white text-sm sm:text-base">Tip Amount</p>
+                <p class="text-grayish-cyan text-xs sm:text-sm">/ person</p>
+              </div>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl text-cyan-300 font-bold">$<span id="tipAmount">0.00</span></h2>
+            </div>
+
+            <!-- Total Amount -->
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-white text-sm sm:text-base">Total</p>
+                <p class="text-grayish-cyan text-xs sm:text-sm">/ person</p>
+              </div>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl text-cyan-300 font-bold">$<span id="totalAmount">0.00</span></h2>
+            </div>
+          </div>
+
+          <button
+            id="resetBtn"
+            class="w-full bg-cyan-300 text-very-dark-cyan py-2 rounded-md text-lg sm:text-xl mt-6 sm:mt-8 hover:bg-cyan-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled
+          >
+            RESET
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
