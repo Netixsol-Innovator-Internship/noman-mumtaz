@@ -7,6 +7,7 @@ let quizTimer = null
 let timeLeft = 60
 let userScore = 0
 let quizHistory = []
+let registeredUsers = [] // Store all registered users
 
 // Sample quiz data
 const quizData = {
@@ -285,7 +286,6 @@ const quizData = {
       },
     ],
   },
-  // Add fallback for ancient and shakespeare quizzes
   ancient: {
     name: "Ancient Civilizations",
     questions: [
@@ -398,6 +398,66 @@ const quizData = {
   },
 }
 
+// Authentication Helper Functions
+function hashPassword(password) {
+  // Simple hash function for demo purposes
+  // In production, use proper hashing like bcrypt
+  let hash = 0
+  for (let i = 0; i < password.length; i++) {
+    const char = password.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash = hash & hash // Convert to 32-bit integer
+  }
+  return hash.toString()
+}
+
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+function validatePassword(password) {
+  // Password must be at least 6 characters
+  return password.length >= 6
+}
+
+function findUserByEmail(email) {
+  return registeredUsers.find((user) => user.email.toLowerCase() === email.toLowerCase())
+}
+
+function showMessage(message, type = "error") {
+  // Remove any existing messages
+  const existingMessage = document.querySelector(".auth-message")
+  if (existingMessage) {
+    existingMessage.remove()
+  }
+
+  // Create new message element
+  const messageDiv = document.createElement("div")
+  messageDiv.className = `auth-message p-3 rounded-lg mb-4 text-sm ${
+    type === "success"
+      ? "bg-green-100 text-green-700 border border-green-300"
+      : "bg-red-100 text-red-700 border border-red-300"
+  }`
+  messageDiv.textContent = message
+
+  // Insert message at the top of the current form
+  const currentPage = document.querySelector(".min-h-screen:not(.hidden)")
+  if (currentPage) {
+    const form = currentPage.querySelector("form")
+    if (form) {
+      form.parentNode.insertBefore(messageDiv, form)
+    }
+  }
+
+  // Auto-remove message after 5 seconds
+  setTimeout(() => {
+    if (messageDiv.parentNode) {
+      messageDiv.remove()
+    }
+  }, 5000)
+}
+
 // Initialize the app
 function init() {
   // Initialize theme
@@ -409,11 +469,26 @@ function init() {
     if (themeIcon) themeIcon.className = "fas fa-sun text-lg"
   }
 
+  // Load registered users
+  const savedUsers = localStorage.getItem("registeredUsers")
+  if (savedUsers) {
+    registeredUsers = JSON.parse(savedUsers)
+  }
+
   // Check if user is logged in
   const savedUser = localStorage.getItem("currentUser")
   if (savedUser) {
-    currentUser = JSON.parse(savedUser)
-    showPage("home")
+    const userData = JSON.parse(savedUser)
+    // Verify user still exists in registered users
+    const userExists = findUserByEmail(userData.email)
+    if (userExists) {
+      currentUser = userData
+      showPage("home")
+    } else {
+      // User was deleted, clear session
+      localStorage.removeItem("currentUser")
+      showPage("login")
+    }
   } else {
     showPage("login")
   }
@@ -444,6 +519,12 @@ function showPage(page) {
       element.classList.add("hidden")
     }
   })
+
+  // Clear any existing messages when changing pages
+  const existingMessage = document.querySelector(".auth-message")
+  if (existingMessage) {
+    existingMessage.remove()
+  }
 
   // Show navbar for authenticated pages
   const navbar = document.getElementById("navbar")
@@ -491,54 +572,124 @@ function showPage(page) {
   }
 }
 
-// Handle login
+// Handle login - UPDATED WITH AUTHENTICATION
 function handleLogin(event) {
   event.preventDefault()
-  const email = document.getElementById("loginEmail").value
+  const email = document.getElementById("loginEmail").value.trim()
   const password = document.getElementById("loginPassword").value
 
-  if (email && password) {
-    currentUser = {
-      name: "Sophia Bennett",
-      email: email,
-      joinDate: "2023",
-    }
-    localStorage.setItem("currentUser", JSON.stringify(currentUser))
-    showPage("home")
-  } else {
-    alert("Please enter valid credentials")
-  }
-}
-
-// Handle signup
-function handleSignup(event) {
-  event.preventDefault()
-  const name = document.getElementById("signupName").value
-  const email = document.getElementById("signupEmail").value
-  const password = document.getElementById("signupPassword").value
-  const confirmPassword = document.getElementById("confirmPassword").value
-
-  if (password !== confirmPassword) {
-    alert("Passwords do not match!")
+  // Validate input
+  if (!email || !password) {
+    showMessage("Please enter both email and password.")
     return
   }
 
-  if (name && email && password) {
-    currentUser = {
-      name: name,
-      email: email,
-      joinDate: new Date().getFullYear().toString(),
-    }
-    localStorage.setItem("currentUser", JSON.stringify(currentUser))
-    showPage("home")
-  } else {
-    alert("Please fill in all fields")
+  if (!validateEmail(email)) {
+    showMessage("Please enter a valid email address.")
+    return
   }
+
+  // Find user in registered users
+  const user = findUserByEmail(email)
+  if (!user) {
+    showMessage("No account found with this email address. Please sign up first.")
+    return
+  }
+
+  // Verify password
+  const hashedPassword = hashPassword(password)
+  if (user.password !== hashedPassword) {
+    showMessage("Incorrect password. Please try again.")
+    return
+  }
+
+  // Login successful
+  currentUser = {
+    name: user.name,
+    email: user.email,
+    joinDate: user.joinDate,
+    id: user.id,
+  }
+
+  localStorage.setItem("currentUser", JSON.stringify(currentUser))
+  showMessage("Login successful! Welcome back.", "success")
+
+  // Redirect to home page after a short delay
+  setTimeout(() => {
+    showPage("home")
+  }, 1000)
+}
+
+// Handle signup - UPDATED WITH AUTHENTICATION
+function handleSignup(event) {
+  event.preventDefault()
+  const name = document.getElementById("signupName").value.trim()
+  const email = document.getElementById("signupEmail").value.trim()
+  const password = document.getElementById("signupPassword").value
+  const confirmPassword = document.getElementById("confirmPassword").value
+
+  // Validate input
+  if (!name || !email || !password || !confirmPassword) {
+    showMessage("Please fill in all fields.")
+    return
+  }
+
+  if (!validateEmail(email)) {
+    showMessage("Please enter a valid email address.")
+    return
+  }
+
+  if (!validatePassword(password)) {
+    showMessage("Password must be at least 6 characters long.")
+    return
+  }
+
+  if (password !== confirmPassword) {
+    showMessage("Passwords do not match!")
+    return
+  }
+
+  // Check if user already exists
+  const existingUser = findUserByEmail(email)
+  if (existingUser) {
+    showMessage("An account with this email already exists. Please login instead.")
+    return
+  }
+
+  // Create new user
+  const newUser = {
+    id: Date.now().toString(), // Simple ID generation
+    name: name,
+    email: email.toLowerCase(),
+    password: hashPassword(password),
+    joinDate: new Date().getFullYear().toString(),
+    createdAt: new Date().toISOString(),
+  }
+
+  // Add to registered users
+  registeredUsers.push(newUser)
+  localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers))
+
+  // Auto-login the new user
+  currentUser = {
+    name: newUser.name,
+    email: newUser.email,
+    joinDate: newUser.joinDate,
+    id: newUser.id,
+  }
+
+  localStorage.setItem("currentUser", JSON.stringify(currentUser))
+  showMessage("Account created successfully! Welcome to QuizMaster.", "success")
+
+  // Redirect to home page after a short delay
+  setTimeout(() => {
+    showPage("home")
+  }, 1500)
 }
 
 // Start a quiz - FIXED VERSION
 function startQuiz(quizType) {
-  console.log("Starting quiz:", quizType) // Debug log
+  console.log("Starting quiz:", quizType)
 
   // Clear any existing timer
   if (quizTimer) {
@@ -560,7 +711,7 @@ function startQuiz(quizType) {
   userScore = 0
   timeLeft = 60
 
-  console.log("Quiz loaded:", currentQuiz.name, "Questions:", currentQuiz.questions.length) // Debug log
+  console.log("Quiz loaded:", currentQuiz.name, "Questions:", currentQuiz.questions.length)
 
   // Show quiz page and display first question
   showPage("quiz")
@@ -580,7 +731,7 @@ function displayQuestion() {
   }
 
   const question = currentQuiz.questions[currentQuestionIndex]
-  console.log("Displaying question:", currentQuestionIndex + 1, question.question) // Debug log
+  console.log("Displaying question:", currentQuestionIndex + 1, question.question)
 
   // Update question text
   const questionTextElement = document.getElementById("questionText")
@@ -628,7 +779,7 @@ function displayQuestion() {
 
   if (nextBtn) {
     nextBtn.textContent = currentQuestionIndex === currentQuiz.questions.length - 1 ? "Finish" : "Next"
-    nextBtn.disabled = false // Ensure button is enabled
+    nextBtn.disabled = false
   }
 
   // Reset timer
@@ -731,6 +882,7 @@ function finishQuiz() {
     total: currentQuiz.questions.length,
     date: new Date().toISOString().split("T")[0],
     answers: userAnswers,
+    userId: currentUser.id,
   }
 
   quizHistory.unshift(quizResult)
@@ -788,12 +940,15 @@ function updateProfileDisplay() {
     if (profileDisplayName) profileDisplayName.textContent = currentUser.name
     if (profileDisplayEmail) profileDisplayEmail.textContent = currentUser.email
 
+    // Filter quiz history for current user
+    const userQuizHistory = quizHistory.filter((quiz) => quiz.userId === currentUser.id)
+
     // Update quiz history table
     const historyTable = document.getElementById("quizHistoryTable")
     if (historyTable) {
       historyTable.innerHTML = ""
 
-      quizHistory.forEach((quiz) => {
+      userQuizHistory.forEach((quiz) => {
         const row = document.createElement("tr")
         row.className = "hover:bg-gray-50 dark:hover:bg-gray-700"
         row.innerHTML = `
@@ -810,7 +965,7 @@ function updateProfileDisplay() {
     if (activityFeed) {
       activityFeed.innerHTML = ""
 
-      quizHistory.slice(0, 5).forEach((quiz, index) => {
+      userQuizHistory.slice(0, 5).forEach((quiz, index) => {
         const activity = document.createElement("div")
         activity.className = "flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
         const daysAgo = index === 0 ? "2 days ago" : `${(index + 1) * 3} days ago`
@@ -895,10 +1050,9 @@ function toggleMobileMenu() {
 }
 
 function logout() {
+  // Clear user session
   localStorage.removeItem("currentUser")
-  localStorage.removeItem("quizHistory")
   currentUser = null
-  quizHistory = []
 
   // Clear any running timers
   if (quizTimer) {
@@ -906,7 +1060,19 @@ function logout() {
     quizTimer = null
   }
 
-  showPage("login")
+  // Reset quiz variables
+  currentQuiz = null
+  currentQuestionIndex = 0
+  userAnswers = []
+  userScore = 0
+  timeLeft = 60
+
+  showMessage("You have been logged out successfully.", "success")
+
+  // Redirect to login page after a short delay
+  setTimeout(() => {
+    showPage("login")
+  }, 1000)
 }
 
 // Initialize app when page loads
