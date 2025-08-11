@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZAIZA Design Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#4F46E5',
+                        'dark-bg': '#4A4458'
+                    },
+                    fontFamily: {
+                        'avenir': ['Avenir Next', 'Avenir', 'system-ui', 'sans-serif']
+                    },
+                    screens: {
+                        'xs': '475px',
+                        'sm': '640px',
+                        'md': '768px',
+                        'lg': '1024px',
+                        'xl': '1280px',
+                        '2xl': '1536px',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-down': 'slideDown 0.3s ease-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'scale-in': 'scaleIn 0.2s ease-out',
+                        'bounce-in': 'bounceIn 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'gradient-shift': 'gradientShift 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)' },
+                            '70%': { transform: 'scale(0.9)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-5px)' }
+                        },
+                        gradientShift: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Avenir Next', 'Avenir', 'Noto Sans Arabic', system-ui, sans-serif;
+        }
+        .custom-gradient {
+            background: linear-gradient(83.21deg, #3B0066 -130.25%, #175FC4 -5.2%, #00E1E7 140.51%, #00F7E0 172.5%, #00FFDD 192.89%);
+            background-size: 200% 200%;
+        }
+        .custom-gradient-hover:hover {
+            background: linear-gradient(83.21deg, #2D0050 -130.25%, #1348A0 -5.2%, #00C4C9 140.51%, #00D4C2 172.5%, #00E6C4 192.89%);
+            background-size: 200% 200%;
+            animation: gradientShift 2s ease-in-out infinite;
+        }
+        .gradient-stroke {
+            stroke: url(#gradient);
+        }
+        .menu-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .menu-item:hover {
+            transform: translateX(5px);
+        }
+        .mobile-menu-backdrop {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .stagger-animation {
+            animation-delay: calc(var(--stagger) * 0.1s);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg min-h-screen font-avenir">
+    <header class="bg-white shadow-sm animate-slide-down">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 animate-scale-in">
+                    <div class="text-lg sm:text-xl font-bold text-gray-900 hover:animate-float">
+                        <span class="block">AZAIZA</span>
+                        <span class="block text-xs font-normal text-gray-600 -mt-1">DESIGN STUDIO</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation - Hidden on tablet and mobile -->
+                <div class="hidden lg:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#" class="menu-item text-gray-900 hover:text-brand-blue px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">Home</a>
+                        <a href="#" class="menu-item text-gray-600 hover:text-brand-blue px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">About Us</a>
+                        
+                        <div class="relative group">
+                            <button id="features-dropdown" class="menu-item text-gray-600 hover:text-brand-blue px-3 py-2 text-sm font-medium transition-all duration-300 flex items-center hover:scale-105">
+                                Features
+                                <svg class="ml-1 h-3 w-3 transition-all duration-300 group-hover:rotate-180 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div id="features-menu" class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-1 z-50 animate-slide-down">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">Responsive Design</div>
+                                        <div class="text-xs text-gray-500">Mobile-first approach</div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">UI/UX Design</div>
+                                        <div class="text-xs text-gray-500">User-centered design</div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">Brand Identity</div>
+                                        <div class="text-xs text-gray-500">Logo & visual identity</div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">Prototyping</div>
+                                        <div class="text-xs text-gray-500">Interactive mockups</div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">Design Systems</div>
+                                        <div class="text-xs text-gray-500">Scalable components</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative group">
+                            <button id="services-dropdown" class="menu-item text-gray-600 hover:text-brand-blue px-3 py-2 text-sm font-medium transition-all duration-300 flex items-center hover:scale-105">
+                                Our Services
+                                <svg class="ml-1 h-3 w-3 transition-all duration-300 group-hover:rotate-180 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div id="services-menu" class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-1 z-50 animate-slide-down">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">Web Design</div>
+                                        <div class="text-xs text-gray-500">Custom websites</div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">Mobile App Design</div>
+                                        <div class="text-xs text-gray-500">iOS & Android apps</div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">E-commerce</div>
+                                        <div class="text-xs text-gray-500">Online store design</div>
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-blue transition-all duration-200 hover:translate-x-2">
+                                        <div class="font-medium">Consultation</div>
+                                        <div class="text-xs text-gray-500">Design strategy</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#" class="menu-item text-gray-600 hover:text-brand-blue px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">Why ADG?</a>
+                    </div>
+                </div>
+
+                <!-- Desktop Contact Button - Hidden on tablet and mobile -->
+                <div class="hidden lg:block animate-scale-in">
+                    <button class="custom-gradient custom-gradient-hover text-white px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1">
+                        Contact Us
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button - Visible on tablet and mobile -->
+                <div class="lg:hidden animate-scale-in">
+                    <svg width="0" height="0">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="rotate(83.21)">
+                                <stop offset="-130.25%" style="stop-color:#3B0066"/>
+                                <stop offset="-5.2%" style="stop-color:#175FC4"/>
+                                <stop offset="140.51%" style="stop-color:#00E1E7"/>
+                                <stop offset="172.5%" style="stop-color:#00F7E0"/>
+                                <stop offset="192.89%" style="stop-color:#00FFDD"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900 p-2 transition-all duration-300 hover:scale-110">
+                        <svg id="menu-icon" class="h-6 w-6 gradient-stroke transition-all duration-300" fill="none" stroke="url(#gradient)" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg id="close-icon" class="h-6 w-6 hidden gradient-stroke transition-all duration-300" fill="none" stroke="url(#gradient)" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu - Visible on tablet and mobile -->
+        <div id="mobile-menu" class="lg:hidden hidden">
+            <div class="fixed inset-0 z-50 mobile-menu-backdrop animate-fade-in">
+                <div class="max-w-sm mx-auto bg-white shadow-2xl animate-bounce-in">
+                    <div class="flex justify-between items-center px-4 py-3 border-b border-gray-100">
+                        <div class="text-lg font-bold text-gray-900 animate-slide-down">
+                            <span class="block">AZAIZA</span>
+                            <span class="block text-xs font-normal text-gray-600 -mt-1">DESIGN STUDIO</span>
+                        </div>
+                        <button id="mobile-close-button" class="text-gray-400 hover:text-gray-600 p-1 transition-all duration-300 hover:scale-110 hover:rotate-90">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center px-4 py-6 space-y-5">
+                        <a href="#" class="block text-lg font-medium text-gray-900 hover:text-brand-blue transition-all duration-300 text-center hover:scale-105 animate-slide-up stagger-animation" style="--stagger: 1">Home</a>
+                        
+                        <a href="#" class="block text-lg font-medium text-gray-600 hover:text-brand-blue transition-all duration-300 text-center hover:scale-105 animate-slide-up stagger-animation" style="--stagger: 2">About Us</a>
+                        
+                        <div class="space-y-2 text-center animate-slide-up stagger-animation" style="--stagger: 3">
+                            <button id="mobile-features-toggle" class="w-full text-lg font-medium text-gray-600 hover:text-brand-blue transition-all duration-300 flex items-center justify-center hover:scale-105">
+                                Features
+                                <svg id="mobile-features-arrow" class="ml-2 h-4 w-4 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div id="mobile-features-menu" class="hidden space-y-2 pt-1 animate-slide-down">
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">Responsive Design</a>
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">UI/UX Design</a>
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">Brand Identity</a>
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">Prototyping</a>
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">Design Systems</a>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-center animate-slide-up stagger-animation" style="--stagger: 4">
+                            <button id="mobile-services-toggle" class="w-full text-lg font-medium text-gray-600 hover:text-brand-blue transition-all duration-300 flex items-center justify-center hover:scale-105">
+                                Our Services
+                                <svg id="mobile-services-arrow" class="ml-2 h-4 w-4 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div id="mobile-services-menu" class="hidden space-y-2 pt-1 animate-slide-down">
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">Web Design</a>
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">Mobile App Design</a>
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">E-commerce</a>
+                                <a href="#" class="block text-base text-gray-600 hover:text-brand-blue transition-all duration-200 hover:scale-105">Consultation</a>
+                            </div>
+                        </div>
+
+                        <a href="#" class="block text-lg font-medium text-gray-600 hover:text-brand-blue transition-all duration-300 text-center hover:scale-105 animate-slide-up stagger-animation" style="--stagger: 5">Why ADG?</a>
+                        
+                        <div class="pt-2 w-full max-w-xs animate-slide-up stagger-animation" style="--stagger: 6">
+                            <button class="w-full custom-gradient custom-gradient-hover text-white px-6 py-3 rounded-lg text-base font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 animate-pulse-slow">
+                                Contact Us
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script src="script.js"></script>
+</body>
+</html>
