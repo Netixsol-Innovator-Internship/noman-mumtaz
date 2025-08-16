@@ -4,6 +4,10 @@ const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./docs/swagger');
 const connectDB = require('./config/db');
+const cors = require("cors");
+
+
+
 
 dotenv.config();
 const app = express();
@@ -17,7 +21,11 @@ app.use(express.json());
 
 // Swagger Docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  credentials: true // if you're using cookies or Authorization headers
+}));
 // Routes
 app.use('/api/users', require('./routes/authRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
