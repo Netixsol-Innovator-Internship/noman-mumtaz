@@ -20,7 +20,7 @@ const app = express();
 // ✅ CORS setup for deployed frontend
 app.use(
   cors({
-    origin: "http://localhost:5173", // your deployed frontend URL
+    origin: "https://week3d5.vercel.app/", // your deployed frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // if you are using cookies/auth
   })
