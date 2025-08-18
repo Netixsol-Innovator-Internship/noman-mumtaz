@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:3000/api", // update for production
+  baseURL: "https://backend-tau-five-11.vercel.app/api", // update for production
 });
 
 // =====================
